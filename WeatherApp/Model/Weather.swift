@@ -23,7 +23,6 @@ final class Weather: Object, Decodable {
         case deg
         case clouds
         case desc
-        
     }
     
     override static func primaryKey() -> String? {

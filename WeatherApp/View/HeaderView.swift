@@ -31,7 +31,7 @@ final class HeaderView: UIView {
     }
     
     private func commonInit() {
-        Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)
+        Bundle.main.loadNibNamed(HeaderView.className, owner: self, options: nil)
         addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
         headerView.topAnchor.constraint(equalTo: topAnchor).isActive = true

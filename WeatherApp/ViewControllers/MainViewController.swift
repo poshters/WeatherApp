@@ -26,7 +26,6 @@ final class MainViewController: UIViewController {
     private static let maxHeaderHeight: CGFloat = 200
     private static let minHeaderHeight: CGFloat = 154
     private var titleCity: String = DefoultConstant.empty
-    let blurEffect = UIBlurEffect(style: .dark)
     
     /// MainVC, set data in fields
     func setDataMainVC() {
