@@ -1,0 +1,26 @@
+disabled_rules:
+  - trailing_whitespace
+  - multiple_closures_with_trailing_closure
+
+opt_in_rules:
+  - force_unwrapping
+  - private_outlet
+  - conditional_returns_on_newline
+  - implicitly_unwrapped_optional
+  - let_var_whitespace
+  - no_extension_access_modifier
+  - operator_usage_whitespace
+
+excluded:
+  - Pods/
+  - fastlane/
+
+reporter: "xcode"
+
+custom_rules:
+  missing_docs:
+      included: ".*.swift"
+      regex: '\n *(?!\/\/\/)(\/\/)?[^\n\/]*\n *(?:@\S+ )*(?:public |open )'
+      name: "Missing Docs"
+      message: "Types, properties and methods with public or open access level should be documented."
+      severity: warning

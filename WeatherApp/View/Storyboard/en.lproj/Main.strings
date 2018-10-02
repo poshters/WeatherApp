@@ -1,0 +1,48 @@
+
+/* Class = "UILabel"; text = "max"; ObjectID = "0Fm-Y5-5Ac"; */
+"0Fm-Y5-5Ac.text" = "max";
+
+/* Class = "UILabel"; text = "max temp"; ObjectID = "2uh-Zw-6uB"; */
+"2uh-Zw-6uB.text" = "max temp";
+
+/* Class = "UILabel"; text = " min temp"; ObjectID = "4qL-aO-RW6"; */
+"4qL-aO-RW6.text" = " min temp";
+
+/* Class = "UILabel"; text = "date"; ObjectID = "4rY-dW-ezo"; */
+"4rY-dW-ezo.text" = "date";
+
+/* Class = "UILabel"; text = "desc"; ObjectID = "52P-jg-Txc"; */
+"52P-jg-Txc.text" = "desc";
+
+/* Class = "UILabel"; text = "pressure"; ObjectID = "77j-Hk-voQ"; */
+"77j-Hk-voQ.text" = "pressure";
+
+/* Class = "UILabel"; text = "City"; ObjectID = "ISI-g7-ytH"; */
+"ISI-g7-ytH.text" = "City";
+
+/* Class = "UILabel"; text = "humidity"; ObjectID = "KHx-7F-xY2"; */
+"KHx-7F-xY2.text" = "humidity";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "KQp-3w-u8v"; */
+"KQp-3w-u8v.text" = "Label";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "N2y-d2-LvT"; */
+"N2y-d2-LvT.text" = "Description";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "YPM-yD-72N"; */
+"YPM-yD-72N.text" = "Date";
+
+/* Class = "UILabel"; text = "desc"; ObjectID = "ban-h8-nDa"; */
+"ban-h8-nDa.text" = "desc";
+
+/* Class = "UILabel"; text = "max temp"; ObjectID = "cFH-0z-Ywr"; */
+"cFH-0z-Ywr.text" = "max temp";
+
+/* Class = "UILabel"; text = "Day"; ObjectID = "kqe-Wy-XI0"; */
+"kqe-Wy-XI0.text" = "Day";
+
+/* Class = "UILabel"; text = "min"; ObjectID = "uXa-dc-c9J"; */
+"uXa-dc-c9J.text" = "min";
+
+/* Class = "UILabel"; text = "wind"; ObjectID = "zz7-OD-7nF"; */
+"zz7-OD-7nF.text" = "wind";

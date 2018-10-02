@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomCollectionView" customModule="WeatherApp" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="T87-kH-fFe" id="hEY-kJ-I7M"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="T87-kH-fFe">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <inset key="scrollIndicatorInsets" minX="0.0" minY="50" maxX="0.0" maxY="50"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="12" minimumInteritemSpacing="15" id="Thr-Y7-rgQ">
+                        <size key="itemSize" width="169" height="205"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="T87-kH-fFe" secondAttribute="trailing" id="1OX-pf-9y3"/>
+                <constraint firstItem="T87-kH-fFe" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="N4D-40-OaM"/>
+                <constraint firstItem="T87-kH-fFe" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="QfU-wE-GS1"/>
+                <constraint firstItem="T87-kH-fFe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Up5-vI-Xqr"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="T87-kH-fFe" secondAttribute="bottom" id="YTb-kz-pUl"/>
+                <constraint firstItem="T87-kH-fFe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="eUg-iC-Hd4"/>
+                <constraint firstItem="T87-kH-fFe" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="nLb-cq-W3t"/>
+                <constraint firstItem="T87-kH-fFe" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="yhS-jg-pEb"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+        </view>
+    </objects>
+</document>
