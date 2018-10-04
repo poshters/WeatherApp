@@ -7,10 +7,16 @@
 //
 
 import UIKit
+import AVFoundation
 
 class HourlyHeaderView: UIView {
 
-    @IBOutlet private weak var horlyHeader: UIView!
+    ///instance
+    let headerLayer = CAShapeLayer()
+    private let path = UIBezierPath()
+    private var avPlayer = AVPlayer()
+    private var avPlayerLayer = AVPlayerLayer()
+    private var paused: Bool = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,13 +28,31 @@ class HourlyHeaderView: UIView {
         commonInit()
     }
     
+    override func draw(_ rect: CGRect) {
+        drawHeader()
+    }
+    
     private func commonInit() {
         Bundle.main.loadNibNamed(HourlyHeaderView.className, owner: self, options: nil)
-        addSubview(horlyHeader)
-        horlyHeader.translatesAutoresizingMaskIntoConstraints = false
-        horlyHeader.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        bottomAnchor.constraint(equalTo: horlyHeader.bottomAnchor).isActive = true
-        horlyHeader.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        trailingAnchor.constraint(equalTo: horlyHeader.trailingAnchor).isActive = true
+        self.backgroundColor = UIColor.clear
+    }
+    
+    func drawHeader() {
+        let start: CGPoint = CGPoint(x: 0, y: self.bounds.height - 10  )
+        let finished: CGPoint = CGPoint(x: self.bounds.width, y: self.bounds.height / 1.2 )
+        let controlPoint1 = CGPoint(x: self.bounds.width / 2, y: start.y + 20)
+        let controlPoint2 = CGPoint(x: self.bounds.width / 2, y: start.y + -50)
+        let line1 = CGPoint(x: self.bounds.width, y: self.bounds.height)
+        let line2 = CGPoint(x: 0, y: self.bounds.height)
+        path.move(to: start)
+        path.addCurve(to: finished,
+                      controlPoint1: controlPoint1,
+                      controlPoint2: controlPoint2)
+        path.addLine(to: line1)
+        path.addLine(to: line2)
+        path.close()
+        headerLayer.path = path.cgPath
+        headerLayer.fillColor = UIColor.white.cgColor
+        self.layer.insertSublayer(headerLayer, at: 0)
     }
 }

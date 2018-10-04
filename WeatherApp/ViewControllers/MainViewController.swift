@@ -7,9 +7,7 @@ import AVFoundation
 final class MainViewController: UIViewController {
     ///UI
     @IBOutlet private var heightConstraint: NSLayoutConstraint!
-    private var bottom: NSLayoutConstraint?
     @IBOutlet private weak var headerView: HeaderView!
-    private(set) var weatherForecast = WeatherForecast()
     @IBOutlet private weak var customColectionView: CustomCollectionView!
     @IBOutlet private weak var cityLabel: UILabel!
     @IBOutlet private weak var date: UILabel!
@@ -17,6 +15,8 @@ final class MainViewController: UIViewController {
     @IBOutlet private weak var maxTemp: UILabel!
     
     /// Instance
+    private(set) var weatherForecast = WeatherForecast()
+
     private var getApiWeather = WeatherForecast()
     private let refresh = UIRefreshControl()
     private let locationManager = CLLocationManager()
@@ -88,19 +88,22 @@ final class MainViewController: UIViewController {
         transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         transition.type = .moveIn
         transition.subtype = .fromRight
-        self.navigationController?.view.layer.add(transition, forKey: nil)
+//    self.presentViewController(vc, animated: true, completion: nil)
+
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "infoVC" {
             (segue.destination as? InfoViewController)?.selectedRow = selectedRoW
         }
     }
+    
 }
 
 // MARK: - Life Cycle
 extension MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
@@ -128,6 +131,7 @@ extension MainViewController {
         paused = true
         NotificationCenter.default.removeObserver(self)
         avPlayerLayer.player = nil
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -243,7 +247,6 @@ extension MainViewController: CustomCollectionViewDelegate {
         selectedRoW = weatherForecast.list[indexPath.row]
         collectionView.deselectItem(at: indexPath, animated: false)
         performSegue(withIdentifier: "infoVC", sender: self)
-        self.animationTransition()
     }
     
     func didChangeOffsetY(_ offsetY: CGFloat) {

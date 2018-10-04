@@ -54,7 +54,7 @@ final class Weather: Object, Decodable {
     convenience required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let dateWeather = try values.decode(Int.self, forKey: .dateWeather)
-        let temp = try values.decode(Temp.self, forKey: .temp)
+        let temp = try values.decode(TempHourly.self, forKey: .temp)
         let min = temp.min
         let max = temp.max
         let pressure = try values.decode(Double.self, forKey: .pressure)
@@ -83,7 +83,7 @@ final class Temporary: Decodable {
     }
 }
 
-final class Temp: Decodable {
+final class TempHourly: Decodable {
     @objc dynamic var min: Double = 0.0
     @objc dynamic var max: Double = 0.0
 }

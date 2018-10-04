@@ -20,4 +20,11 @@ final class DayOfWeeks {
             return  "\(dayOfWeek.string(from: date))\(newLine)\(dateFormatter.string(from: date).capitalized)"
         }
     }
+    
+    class func dayOfWeek(date: Int) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(date))
+        let dayOfWeek = DateFormatter()
+        dayOfWeek.dateFormat = DayOfWeeksConstant.day
+        return  "\(dayOfWeek.string(from: date))"
+    }
 }

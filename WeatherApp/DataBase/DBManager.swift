@@ -50,4 +50,17 @@ class DBManager {
             return nil
         }
     }
+    class func addDBHourly(object: WeatherHourly) -> Bool {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.delete(realm.objects(WeatherForecast.self).filter(
+                    "city.name = %@", object.city?.name ?? DefoultConstant.empty))
+                realm.add(object, update: true)
+            }
+            return true
+        } catch {
+            return false
+        }
+    }
 }

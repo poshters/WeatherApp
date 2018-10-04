@@ -12,6 +12,13 @@ final class InfoViewController: UIViewController {
     var selectedRow = Weather()
     
     /// UI
+    @IBAction func buttonAction(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    @IBOutlet private weak var currentHourLabel: UILabel!
+    @IBOutlet private weak var dayOfWeekLabel: UILabel!
+    @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var hourlyHeaderView: HourlyHeaderView!
     @IBOutlet private weak var dayLabel: UILabel!
     @IBOutlet private weak var maxTempLabel: UILabel!
     @IBOutlet private weak var minTempLabel: UILabel!
@@ -26,14 +33,14 @@ final class InfoViewController: UIViewController {
 extension InfoViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.clipsToBounds = true
-        setInfoWether()
+        accessToOutlet()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         avPlayerLayer.player = self.avPlayer
         avPlayer.play()
         paused = false
+        view.clipsToBounds = true
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -48,21 +55,29 @@ extension InfoViewController {
         super.viewWillAppear(animated)
         videoBackground(videoName: selectedRow.icon)
     }
+    
+    func accessToOutlet() {
+        let calendar = Calendar.current
+        let time = calendar.dateComponents([.hour, .minute], from: Date())
+        let day = calendar.component(.weekday, from: Date())
+        currentHourLabel?.text = "\(time.hour ?? 0):\(time.minute ?? 0)"
+        dayOfWeekLabel?.text = "\(DayOfWeeks.dayOfWeek(date: day))"
+    }
 }
 
 // MARK: - Set data in field
 extension InfoViewController {
-    func setInfoWether() {
-        dayLabel.text = DayOfWeeks.dayOfWeeks(date: selectedRow.dateWeather)
-        maxTempLabel.text = TemperatureFormatter.temperatureFormatter(selectedRow.max)
-        minTempLabel.text = TemperatureFormatter.temperatureFormatter(selectedRow.min)
-        descriptionLabel.text = selectedRow.desc
-        humidityLabel.text = "\(WeatherAttributes.humidity)\(selectedRow.humidity)\(WeatherAttributes.humiditySymbol)"
-        pressureLabel.text =
-        "\(WeatherAttributes.pressure)\(Int(selectedRow.pressure))\(WeatherAttributes.pressureSymbol)"
-        windLabel.text = "\(WeatherAttributes.wind)\(Int(selectedRow.speed))\(WeatherAttributes.windSymbol)"
-        iconImage.image = UIImage(named: selectedRow.icon)
-    }
+    //    func setInfoWether() {
+    //        dayLabel.text = DayOfWeeks.dayOfWeeks(date: selectedRow.dateWeather)
+    //        maxTempLabel.text = TemperatureFormatter.temperatureFormatter(selectedRow.max)
+    //        minTempLabel.text = TemperatureFormatter.temperatureFormatter(selectedRow.min)
+    //        descriptionLabel.text = selectedRow.desc
+    //        humidityLabel.text = "\(WeatherAttributes.humidity)\(selectedRow.humidity)\(WeatherAttributes.humiditySymbol)"
+    //        pressureLabel.text =
+    //        "\(WeatherAttributes.pressure)\(Int(selectedRow.pressure))\(WeatherAttributes.pressureSymbol)"
+    //        windLabel.text = "\(WeatherAttributes.wind)\(Int(selectedRow.speed))\(WeatherAttributes.windSymbol)"
+    //        iconImage.image = UIImage(named: selectedRow.icon)
+    //    }
 }
 
 // MARK: - VideoBackground
@@ -81,7 +96,6 @@ extension InfoViewController {
         avPlayerLayer.frame = view.layer.bounds
         view.backgroundColor = .clear
         view.layer.insertSublayer(avPlayerLayer, at: 0)
-        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(playerItemDidReachEnd(notification:)),
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
@@ -93,5 +107,17 @@ extension InfoViewController {
             return
         }
         pusk.seek(to: CMTime.zero, completionHandler: nil)
+    }
+}
+extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: HourlyTableViewCell.className,
+                                                 for: indexPath) as? HourlyTableViewCell
+        cell?.textLabel?.text = "\(indexPath.row)"
+        return cell ?? HourlyTableViewCell()
     }
 }
