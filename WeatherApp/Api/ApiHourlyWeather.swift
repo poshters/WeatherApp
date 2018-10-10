@@ -12,31 +12,33 @@ final class ApiHourlyWeather {
     private let lat = UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude)
     private let long = UserDefaults.standard.double(forKey: UserDefaultsConstant.longitude)
     private let language = Locale.current.languageCode ?? DefoultConstant.empty
-
-    func weatherForecastByCity(lat: Double, long: Double) {
+    
+    func weatherForecastByCity(lat: Double, long: Double) -> WeatherHourlyMainModel {
         let semaphore = DispatchSemaphore(value: 0)
+        var responseModel = WeatherHourlyMainModel()
         let session = URLSession.shared
-        let weatherRequestURL = URL(string: urlApiOpenWeather(url: ApiWeatherConstant.openWeather5Day,
+        guard let weatherRequestURL = URL(string: urlApiOpenWeather(url: ApiWeatherConstant.openWeather5Day,
                                                                     language: language,
                                                                     apiKey: ApiWeatherConstant.openWeatherMapAPIKey,
                                                                     lat: lat,
-                                                                    lon: long))
-         session.dataTask(with: weatherRequestURL!) { (data, response, error) in
+                                                                    lon: long)) else {
+                                                                        return WeatherHourlyMainModel()
+        }
+        session.dataTask(with: weatherRequestURL) { (data, response, error) in
             guard response != nil else {
                 return
             }
             guard let data = data else {
                 return
-
+                
             }
             guard  error == nil else {
                 return
             }
-
+            
             let jsonDecoder = JSONDecoder()
             do {
-                let responseModel = try jsonDecoder.decode(Welcome.self, from: data)
-                print(responseModel)
+                responseModel = try jsonDecoder.decode(WeatherHourlyMainModel.self, from: data)
                 semaphore.signal()
             } catch {
                 semaphore.signal()
@@ -45,10 +47,9 @@ final class ApiHourlyWeather {
             }
             .resume()
         semaphore.wait()
-//        print(responseModel)
-//        return responseModel
+        return responseModel
     }
-
+    
     /// URl OpenWeatherMap
     private func urlApiOpenWeather(url: String, language: String, apiKey: String, lat: Double, lon: Double) -> String {
         return "\(url)lat=\(lat)&lon=\(lon)&lang=\(language)&APPID=\(apiKey)"

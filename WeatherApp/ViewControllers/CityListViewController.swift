@@ -86,6 +86,7 @@ extension CityListViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
         if editingStyle == .delete {
+            DBManager.deleteHourlyWeather(city: deletedCity)
             do {
                 let realm = try Realm()
                 try realm.write {

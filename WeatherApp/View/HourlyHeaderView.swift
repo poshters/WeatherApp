@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 
 class HourlyHeaderView: UIView {
-
+    
     ///instance
     let headerLayer = CAShapeLayer()
     private let path = UIBezierPath()

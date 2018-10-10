@@ -27,4 +27,23 @@ final class DayOfWeeks {
         dayOfWeek.dateFormat = DayOfWeeksConstant.day
         return  "\(dayOfWeek.string(from: date))"
     }
+    
+    class func dayOfHours(date: Int) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(date))
+        let dayOfWeek = DateFormatter()
+        dayOfWeek.dateFormat = "HH:mm"
+        return  "\(dayOfWeek.string(from: date))"
+    }
+    
+    class func timeToDay(hour: Int) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(hour))
+        let hour = Calendar.current.component(.hour, from: date)
+        switch hour {
+        case 6..<12 : return "Morning"
+        case 12 : return "Noon"
+        case 13..<17 : return "Afternoon"
+        case 17..<22 : return "Evening"
+        default: return "Night"
+        }
+    }
 }

@@ -16,7 +16,7 @@ final class MainViewController: UIViewController {
     
     /// Instance
     private(set) var weatherForecast = WeatherForecast()
-
+    
     private var getApiWeather = WeatherForecast()
     private let refresh = UIRefreshControl()
     private let locationManager = CLLocationManager()
@@ -82,18 +82,17 @@ final class MainViewController: UIViewController {
     
     var selectedRoW = Weather()
     
-   private func animationTransition() {
+    private func animationTransition() {
         let transition = CATransition()
         transition.duration = 0.45
         transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
         transition.type = .moveIn
         transition.subtype = .fromRight
-//    self.presentViewController(vc, animated: true, completion: nil)
-
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "infoVC" {
             (segue.destination as? InfoViewController)?.selectedRow = selectedRoW
+            
         }
     }
     
