@@ -1,6 +1,6 @@
 import Foundation
-import Realm
 import RealmSwift
+import Realm
 
 final class Weather: Object, Decodable {
     @objc dynamic var desc: String = DefoultConstant.empty

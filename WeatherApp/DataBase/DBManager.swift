@@ -40,17 +40,20 @@ class DBManager {
         }
     }
     
-    class func  getWeatherForecastByCity(city: City) -> WeatherForecast? {
+    class func  getWeatherForecastByCity(city: City?) -> WeatherForecast? {
+        guard let city = city else {
+            return nil
+        }
         do {
             let realm = try Realm()
-            let result = realm.objects(WeatherForecast.self).filter(DBManagerConstant.cityNameFilter, city.name ).first
+            let result = realm.objects(WeatherForecast.self).filter(DBManagerConstant.cityNameFilter, city.name).first
             return result
             
         } catch {
             return nil
         }
     }
-    @discardableResult
+     @discardableResult
     class func addDBHourly(object: WeatherHourlyMainModel) -> Bool {
         do {
             let realm = try Realm()
@@ -81,34 +84,40 @@ class DBManager {
                 realm.delete(weatherHourlyList)
             }
         } catch {
+            print(error.localizedDescription)
         }
     }
     
-    class func  getWeatherForecastByCity(city: City, date: Int) -> List<ListH>? {
+        class func  getWeatherForecastByCity(city: City, date: Int) -> [ListH]? {
         do {
             let realm = try Realm()
-            var dateCalendar = Date(timeIntervalSince1970: (TimeInterval(date * 1000)))
+            var dateCalendar = Date(timeIntervalSince1970: (TimeInterval(date)))
             
             var calendar = Calendar.current
             let firstDate = calendar.startOfDay(for: dateCalendar)
             let secondDate = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: dateCalendar)
-            
+
             func currentTimeInMiliseconds(date: Date) -> Int {
                 let since1970 = date.timeIntervalSince1970
-                return Int(since1970 / 1000)
+                return Int(since1970)
             }
-            
+                
             let first = currentTimeInMiliseconds(date: firstDate)
             let second = currentTimeInMiliseconds(date: secondDate ?? Date())
-            
-//            let result = realm.objects(List<ListH>).filter("city.name == %@", city.name,
-//                                                     "ListH.dataWeather = %@", date).first
-            
-            return result
+            let result = realm.objects(WeatherHourlyMainModel.self).filter(DBManagerConstant.cityNameFilter,
+                                                                           city.name ).first
+            var list = [ListH]()
+            for weatherHourly in (result?.list) ?? List<ListH>() {
+                if weatherHourly.dateWeather > first && weatherHourly.dateWeather < second {
+                    list.append(weatherHourly)
+                }
+            }
+            print(list)
+            return list
             
         } catch {
+            print(error.localizedDescription)
             return nil
         }
     }
 }
-

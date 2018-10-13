@@ -1,7 +1,11 @@
 import Foundation
 
 final class TemperatureFormatter {
-    static func temperatureFormatter(_ kelvinTemp: Double) -> String {
+    static func temperatureFormatter(_ kelvinTemp: Double?) -> String {
+        guard let kelvinTemp = kelvinTemp else {
+            return ""
+        }
+        
         let formatter = MeasurementFormatter()
         formatter.locale = Locale(identifier: TemperatureFormatterConstant.identifier)
         formatter.numberFormatter.maximumFractionDigits = 0

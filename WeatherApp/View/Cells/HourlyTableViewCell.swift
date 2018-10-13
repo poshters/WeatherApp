@@ -14,6 +14,10 @@ class HourlyTableViewCell: UITableViewCell {
     @IBOutlet private weak var hourlyicon: UIImageView!
     @IBOutlet private weak var hourlyLabel: UILabel!
     @IBOutlet private weak var tempLabel: UILabel!
+    @IBOutlet private weak var hourlyDescriptionLabel: UILabel!
+    @IBOutlet private weak var humiudityIconImage: UIImageView!
+    @IBOutlet private weak var hourlyPressureLabel: UILabel!
+    @IBOutlet private weak var hourlyHumidityLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,12 +28,16 @@ class HourlyTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func accessToOutlet(hour: String, temp: String) {
-        hourlyLabel.text = hour
+    func accessToOutlet(dayOfweek: String, temp: String, description: String,
+                        pressure: String, humidity: String) {
+        hourlyLabel.text = dayOfweek
         tempLabel.text = temp
+        hourlyDescriptionLabel.text = description
+        hourlyPressureLabel.text = pressure
+        hourlyHumidityLabel.text = humidity
     }
-    
-    func alphaIcon(alpha: CGFloat) {
-        hourlyicon.alpha = alpha
+    func accessToImage(icon: String) {
+          humiudityIconImage.image = UIImage(named: icon)
     }
+
 }

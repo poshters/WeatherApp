@@ -9,10 +9,10 @@ final class InfoViewController: UIViewController {
     private var avPlayer = AVPlayer()
     private var avPlayerLayer = AVPlayerLayer()
     private var paused: Bool = false
-    private var hourlyWeather = WeatherHourlyMainModel()
     private var selectedIndexPath: Int?
+    private var hourlyWeather = WeatherHourlyMainModel()
+    private var listHourly = [ListH]()
     var selectedRow = Weather()
-    let weatherCity = WeatherForecast()
     
     /// UI
     @IBOutlet private weak var currentHourLabel: UILabel!
@@ -48,13 +48,13 @@ extension InfoViewController {
             forKey: UserDefaultsConstant.latitude),
                                                                  long: UserDefaults.standard.double(
                                                                     forKey: UserDefaultsConstant.longitude))
-        //        let cityName = hourlyWeather.city
         DBManager.addDBHourly(object: hourlyWeather)
         accessToOutlet()
-        //        let listHourly = DBManager.getWeatherForecastByCity(city: cityName!, date:
-        //          hourlyWeather.list[0].dateWeather)
-        //        print("\(hourlyWeather.list[0].dateWeather) +  ---- + \(listHourly)")
         
+        if let listHourlyTemp = DBManager.getWeatherForecastByCity(city: hourlyWeather.city ?? City(),
+                                                                   date: selectedRow.dateWeather) {
+            listHourly = listHourlyTemp
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -121,7 +121,7 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return    self.hourlyWeather.list.count
+        return listHourly.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -130,18 +130,21 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: HourlyTableViewCell.className,
                                                     for: indexPath) as? HourlyTableViewCell {
             
-            cell.accessToOutlet(hour: DayOfWeeks.timeToDay(hour: hourlyWeather.list[indexPath.row].dateWeather),
-                                temp: TemperatureFormatter.temperatureFormatter(
-                                    hourlyWeather.list[indexPath.row].main?.temp ?? 0.0))
+            cell.accessToOutlet(dayOfweek: DayOfWeeks.timeToDay(hour: listHourly[indexPath.row].dateWeather),
+                                temp: TemperatureFormatter.temperatureFormatter(listHourly[indexPath.row].main?.temp ?? 0.0),
+                                description: "\(listHourly[indexPath.row].weather[0].desc)",
+                pressure: "\(round(listHourly[indexPath.row].main?.pressure ?? 0.0))\(WeatherAttributes.pressureSymbol)",
+                humidity: "\(listHourly[indexPath.row].main?.humidity ?? 0)\(WeatherAttributes.humiditySymbol)")
+            cell.accessToImage(icon: listHourly[indexPath.row].weather[0].icon)
+            
             return cell
         }
         return HourlyTableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        currenTime(hours: hourlyWeather.list[indexPath.row].dateWeather,
-                   dayOfWeek: hourlyWeather.list[indexPath.row].dateWeather)
-       
+        currenTime(hours: listHourly[indexPath.row].dateWeather,
+                   dayOfWeek: listHourly[indexPath.row].dateWeather)
         if indexPath.row == self.selectedIndexPath {
             self.selectedIndexPath = nil
         } else {
@@ -158,6 +161,7 @@ extension InfoViewController {
     @IBAction func buttonAction(_ sender: Any) {
         accessToOutlet()
     }
+    
     /// Button Back
     @IBAction func backButtonAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

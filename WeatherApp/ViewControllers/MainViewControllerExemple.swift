@@ -1,0 +1,270 @@
+//import UIKit
+//import RealmSwift
+//import CoreLocation
+//import GooglePlaces
+//import AVFoundation
+//
+//final class MainViewController: UIViewController {
+//    ///UI
+//    @IBOutlet private var heightConstraint: NSLayoutConstraint!
+//    @IBOutlet private weak var headerView: HeaderView!
+//    @IBOutlet private weak var customColectionView: CustomCollectionView!
+//
+//    private var getWeather: WeatherForecast?
+//    private let refresh = UIRefreshControl()
+//    private let locationManager = CLLocationManager()
+//    private var avPlayer = AVPlayer()
+//    private var avPlayerLayer = AVPlayerLayer()
+//    private var paused: Bool = false
+//    private static let maxHeaderHeight: CGFloat = 200
+//    private static let minHeaderHeight: CGFloat = 154
+//    private var titleCity: String = DefoultConstant.empty
+//
+//    // MARK: Refresh data in TableView
+//    @objc private func refreshData() {
+//        refresh.beginRefreshing()
+//        checkData()
+//        refresh.endRefreshing()
+//    }
+//
+//    /// Data validation in the database
+//    private func checkData() {
+//        getDBApi(lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
+//                 long: UserDefaults.standard.double(
+//                    forKey: UserDefaultsConstant.longitude)) { [weak self] result, error in
+//                        DispatchQueue.main.async {
+//                            if result?.city == nil {
+//                                self?.alertClose(error?.localizedDescription)
+//
+//                            } else {
+//                                if let result = result {
+//                                    self?.customColectionView.fill(weathers: result)
+//                                    self?.videoBackground(videoName: result.list.first?.icon ?? DefoultConstant.empty)
+//                                    SheduleNotification.sheduleNotification(
+//                                        title: "\(result.city?.name ?? DefoultConstant.empty)",
+//                                        subtitle: "\(result.list.first?.desc ?? "")", body: """
+//                                        \(NotificationConstant.maxTemp)\(TemperatureFormatter.temperatureFormatter(result.list.first?.max)),
+//                                        \(NotificationConstant.minTemp)\(TemperatureFormatter.temperatureFormatter(result.list.first?.min))
+//                                        """)
+//                                    self?.headerView.accessToOutlet(city: result.city?.name ?? DefoultConstant.empty,
+//                                                                    dayOfweeK: DayOfWeeks.dayOfWeeks(date: result.list.first?.dateWeather),
+//                                                                    temperature: TemperatureFormatter.temperatureFormatter(result.list.first?.max),
+//                                                                    desc: result.list.first?.desc ?? DefoultConstant.empty,
+//                                                                    icon: result.list.first?.icon ?? DefoultConstant.empty)
+//                                }
+//                            }
+//                        }
+//        }
+//    }
+//    // MARK: - Save data in the database
+//    func getDBApi(lat: Double, long: Double, completion: ((WeatherForecast?, Error?) -> Void)? = nil) {
+//        ApiWeather().getWeatherForecastByCity(lat: lat, long: long) { result, error in
+//            DispatchQueue.main.async {
+//                if let result = result {
+//                    DBManager.addDB(object: result)
+//                    self.getWeather = DBManager.getWeatherForecastByCity(city: result.city)
+//                    completion?(result, error)
+//                } else {
+//                    completion?(nil, error)
+//                }
+//            }
+//        }
+//    }
+//
+//    // MARK: - Alert
+//    private func alertClose(_ message: String? = nil) {
+//        let alert = UIAlertController(title: AlertConstant.title, message: message ?? AlertConstant.message,
+//                                      preferredStyle: .alert)
+//        let alertAction = UIAlertAction(title: AlertConstant.actionTitle, style: .cancel) { (_) in
+//            self.refreshData()
+//        }
+//        alert.addAction(alertAction)
+//        self.present(alert, animated: true, completion: nil)
+//    }
+//
+//    var selectedRoW = Weather()
+//
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "infoVC" {
+//            (segue.destination as? InfoViewController)?.selectedRow = selectedRoW
+//        }
+//    }
+//}
+//
+//// MARK: - Life Cycle
+//extension MainViewController {
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        locationManager.delegate = self
+//        locationManager.requestWhenInUseAuthorization()
+//        locationManager.requestLocation()
+//        self.navigationItem.title = DefoultConstant.title
+//        refreshData()
+//        customColectionView.backgroundColor = UIColor.clear
+//        customColectionView.customCollectionDelegate = self
+//        headerView.backgroundColor = UIColor(white: 1, alpha: 0.5)
+//        titleCity = getWeather?.city?.name ?? DefoultConstant.empty
+//        heightConstraint.constant = MainViewController.maxHeaderHeight
+//
+//    }
+//
+//    override func viewDidAppear(_ animated: Bool) {
+//        avPlayerLayer.player = self.avPlayer
+//        avPlayer.play()
+//        paused = false
+//    }
+//
+//    override func viewDidDisappear(_ animated: Bool) {
+//        super.viewDidDisappear(animated)
+//        avPlayer.play()
+//        paused = true
+//        NotificationCenter.default.removeObserver(self)
+//        avPlayerLayer.player = nil
+//
+//    }
+//
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//
+//    }
+//}
+//
+//// MARK: - CurrentLocation
+//extension MainViewController: CLLocationManagerDelegate {
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        if let lat = locations.last?.coordinate.latitude,
+//            let long = locations.last?.coordinate.longitude {
+//            UserDefaults.standard.set(lat, forKey: UserDefaultsConstant.latitude)
+//            UserDefaults.standard.set(long, forKey: UserDefaultsConstant.longitude)
+//            self.refreshData()
+//        } else {
+//            print(OtherConstant.noCordinates)
+//        }
+//    }
+//
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        print(error)
+//    }
+//}
+//
+//// MARK: - Сity ​​search
+//extension MainViewController: GMSAutocompleteViewControllerDelegate {
+//    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+//
+//        UserDefaults.standard.set(place.coordinate.latitude, forKey: UserDefaultsConstant.latitude)
+//        UserDefaults.standard.set(place.coordinate.longitude, forKey: UserDefaultsConstant.longitude)
+//        customColectionView.refreshCollection()
+//        self.refreshData()
+//
+//        dismiss(animated: true, completion: nil)
+//    }
+//
+//    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+//        print(OtherConstant.error, error.localizedDescription)
+//    }
+//
+//    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+//        dismiss(animated: true, completion: nil)
+//    }
+//
+//    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+//        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+//    }
+//
+//    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+//        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//    }
+//}
+//
+//// MARK: - UIButtonAction
+//extension MainViewController {
+//
+//    /// ChengeScrollingCustomColectionView
+//    @IBAction func changeScrollColectionViewButton(_ sender: Any) {
+//        customColectionView.scrollChange()
+//    }
+//
+//    /// FindeCityButton
+//    @IBAction func findeCityButton(_ sender: Any) {
+//        let autocompleteController = GMSAutocompleteViewController()
+//        autocompleteController.delegate = self
+//        present(autocompleteController, animated: true, completion: nil)
+//    }
+//}
+//
+//// MARK: - VideoBackGround
+//extension MainViewController {
+//    func videoBackground(videoName: String) {
+//        guard let theURL = Bundle.main.url(forResource: videoName, withExtension: "mp4")
+//            else {
+//                return
+//        }
+//        avPlayer = AVPlayer(url: theURL)
+//        avPlayerLayer = AVPlayerLayer(player: avPlayer)
+//        avPlayerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+//        avPlayer.volume = 0
+//        avPlayer.actionAtItemEnd = .none
+//
+//        avPlayerLayer.frame = view.layer.bounds
+//        view.backgroundColor = .clear
+//        view.layer.insertSublayer(avPlayerLayer, at: 0)
+//
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(playerItemDidReachEnd(notification:)),
+//                                               name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+//                                               object: avPlayer.currentItem)
+//
+//    }
+//
+//    @objc func playerItemDidReachEnd(notification: Notification) {
+//        guard let pusk: AVPlayerItem = notification.object as? AVPlayerItem else {
+//            return
+//        }
+//        pusk.seek(to: CMTime.zero, completionHandler: nil)
+//    }
+//}
+//
+//// MARK: - CustomCollectionViewDelegate
+//extension MainViewController: CustomCollectionViewDelegate {
+//    func didSelectRowAt(_ collectionView: UICollectionView, indexPath: IndexPath) {
+//
+//        guard (getWeather?.list[indexPath.row]) == nil else {
+//            return
+//        }
+//        self.selectedRoW = (getWeather?.list[indexPath.row])!
+//        collectionView.deselectItem(at: indexPath, animated: false)
+//        performSegue(withIdentifier: "infoVC", sender: self)
+//    }
+//
+//    func didChangeOffsetY(_ offsetY: CGFloat) {
+//        let offset = offsetY
+//        var headerTransform = CATransform3DIdentity
+//
+//        if offset < 0 {
+//            let headerScaleFactor: CGFloat = -(offset) / heightConstraint.constant
+//            let headerSizevariation =
+//                ((heightConstraint.constant * (1.0 + headerScaleFactor)) - heightConstraint.constant) / 2.0
+//            headerTransform = CATransform3DTranslate(headerTransform, 0, headerSizevariation, 0)
+//            headerTransform = CATransform3DScale(headerTransform, 1.0 + headerScaleFactor, 1.0 + headerScaleFactor, 0)
+//            headerView.layer.transform = headerTransform
+//        } else {
+//            headerTransform = CATransform3DTranslate(headerTransform, 0,
+//                                                     max(-MainViewController.minHeaderHeight, -offset), 0)
+//            headerView.layer.transform = headerTransform
+//        }
+//
+//        if offset >= heightConstraint.constant / 2 {
+//            UIView.animate(withDuration: 0.3) {
+//                self.headerView.position()
+//                self.headerView.alphaImage(alpha: 1)
+//                self.navigationItem.title = self.titleCity
+//            }
+//        } else {
+//            UIView.animate(withDuration: 0.3) {
+//                self.headerView.defoultPosition()
+//                self.headerView.alphaImage(alpha: 0)
+//                self.navigationItem.title = DefoultConstant.title
+//            }
+//        }
+//    }
+//}

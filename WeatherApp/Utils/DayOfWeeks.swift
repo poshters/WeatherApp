@@ -1,8 +1,11 @@
 import Foundation
 
 final class DayOfWeeks {
-    class func dayOfWeeks(date: Int, separateDataAndDay: Bool = false ) -> String {
-        let date = Date(timeIntervalSince1970: TimeInterval(date))
+    class func dayOfWeeks(date: Int?, separateDataAndDay: Bool = false ) -> String {
+        guard let dateWeek = date else {
+            return DefoultConstant.empty
+        }
+        let date = Date(timeIntervalSince1970: TimeInterval(dateWeek))
         let dateFormatter = DateFormatter()
         let dayOfWeek = DateFormatter()
         if separateDataAndDay == true {

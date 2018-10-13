@@ -92,10 +92,8 @@ final class MainViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "infoVC" {
             (segue.destination as? InfoViewController)?.selectedRow = selectedRoW
-            
         }
     }
-    
 }
 
 // MARK: - Life Cycle

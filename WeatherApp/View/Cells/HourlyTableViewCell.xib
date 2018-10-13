@@ -31,8 +31,8 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wind" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwE-cu-Jss">
-                        <rect key="frame" x="8" y="92" width="42.5" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Humidity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AwE-cu-Jss">
+                        <rect key="frame" x="8" y="92" width="88" height="21"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -67,7 +67,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="KGf-1Y-MUS" secondAttribute="trailing" constant="228" id="0VM-Sg-sSZ"/>
-                    <constraint firstItem="7zt-Do-q7a" firstAttribute="leading" secondItem="AwE-cu-Jss" secondAttribute="trailing" constant="67.5" id="1fo-T8-TPb"/>
+                    <constraint firstItem="7zt-Do-q7a" firstAttribute="leading" secondItem="AwE-cu-Jss" secondAttribute="trailing" constant="22" id="1fo-T8-TPb"/>
                     <constraint firstItem="hPp-pO-FCC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="125" id="4jd-Fw-Grb"/>
                     <constraint firstAttribute="trailing" secondItem="bzv-VU-n4a" secondAttribute="trailing" constant="219" id="56g-qM-hmb"/>
                     <constraint firstAttribute="trailing" secondItem="hPp-pO-FCC" secondAttribute="trailing" constant="130" id="5pa-hT-LAF"/>
@@ -101,8 +101,12 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="hourlyDescriptionLabel" destination="xxz-oc-k38" id="9WI-XB-LHh"/>
+                <outlet property="hourlyHumidityLabel" destination="7zt-Do-q7a" id="VVZ-BQ-nFP"/>
                 <outlet property="hourlyLabel" destination="bzv-VU-n4a" id="0ST-lK-hSu"/>
+                <outlet property="hourlyPressureLabel" destination="1CG-4Y-RXv" id="DBl-zu-o0z"/>
                 <outlet property="hourlyicon" destination="wHn-SI-AtR" id="Y2h-pR-03y"/>
+                <outlet property="humiudityIconImage" destination="wHn-SI-AtR" id="hoh-jJ-184"/>
                 <outlet property="tempLabel" destination="hPp-pO-FCC" id="Bkr-po-7do"/>
             </connections>
             <point key="canvasLocation" x="140.80000000000001" y="67.916041979010501"/>
