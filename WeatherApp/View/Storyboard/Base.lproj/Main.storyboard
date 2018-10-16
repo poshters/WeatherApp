@@ -42,12 +42,22 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ldj-hV-zdg"/>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="Item" id="ctC-8s-EzL"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="SAW-nN-3b9">
-                        <barButtonItem key="leftBarButtonItem" systemItem="organize" id="667-Zk-ckI">
-                            <connections>
-                                <segue destination="CGT-7e-9eT" kind="show" id="69H-8E-mMK"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem systemItem="organize" id="667-Zk-ckI">
+                                <connections>
+                                    <segue destination="CGT-7e-9eT" kind="show" id="69H-8E-mMK"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="placeholder-2" id="AlK-Uw-qFi">
+                                <connections>
+                                    <action selector="locationButtonAction:" destination="DtG-9z-QHq" id="C5W-TR-mNf"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="search" id="5QK-49-BEk">
                                 <connections>
@@ -61,6 +71,7 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="customColectionView" destination="5D4-HR-fcQ" id="Xj3-2Q-rZC"/>
                         <outlet property="headerView" destination="6h7-yo-4SR" id="7jh-DI-BYf"/>
@@ -316,6 +327,7 @@
     <resources>
         <image name="back" width="51.200000762939453" height="51.200000762939453"/>
         <image name="clock1" width="102.40000152587891" height="102.40000152587891"/>
+        <image name="placeholder-2" width="41.513511657714844" height="41.513511657714844"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="69H-8E-mMK"/>

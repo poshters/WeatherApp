@@ -37,7 +37,8 @@ final class InfoViewController: UIViewController {
         currentHourLabel.text = DayOfWeeks.dayOfHours(date: hours)
         dayOfWeekLabel.text = DayOfWeeks.dayOfWeek(date: dayOfWeek)
     }
-
+    
+///Save data in DataBase
 private func updateData() {
     ApiHourlyWeather().weatherForecastByCity(
         lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
@@ -52,6 +53,8 @@ private func updateData() {
                 }
             }
     }
+    
+    ///Get data with DataBase
     private func getData() {
         self.listHourly = DBManager.getWeatherForecastByCity(
             lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),

@@ -9,7 +9,7 @@ final class MainViewController: UIViewController {
     @IBOutlet private var heightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var headerView: HeaderView!
     @IBOutlet private weak var customColectionView: CustomCollectionView!
-    
+ 
     private var getWeather: WeatherForecast?
     private let refresh = UIRefreshControl()
     private let locationManager = CLLocationManager()
@@ -27,7 +27,7 @@ final class MainViewController: UIViewController {
         refresh.endRefreshing()
     }
     
-    /// Save data in Data Bases
+    /// Save data in Data Base
     private func updateData() {
         ApiWeather().getWeatherForecastByCity(
             lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
@@ -49,20 +49,34 @@ final class MainViewController: UIViewController {
         }
     }
     
+    /// Get data with Data Base
     private func getData() {
         let results = DBManager.getWeatherForecastByCity(
             lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
             long: UserDefaults.standard.double(forKey: UserDefaultsConstant.longitude))
         self.getWeather = results?.first
         if let weather = self.getWeather {
+            
+            /// set name city in NavigetionTitle
             self.titleCity = weather.city?.name ?? DefoultConstant.empty
+            
+            /// set data in CollectionView
             self.customColectionView.fill(weathers: weather)
+            
+            /// set data in HeaderView
             self.headerView.accessToOutlet(
                 city: weather.city?.name ?? DefoultConstant.empty,
                 dayOfweeK: DayOfWeeks.dayOfWeeks(date: weather.list.first?.dateWeather),
                 temperature: TemperatureFormatter.temperatureFormatter(weather.list.first?.max),
                 desc: weather.list.first?.desc ?? DefoultConstant.empty,
                 icon: weather.list.first?.icon ?? DefoultConstant.empty)
+            
+            ///Notification
+            SheduleNotification.sheduleNotification(title: "\(weather.city?.name ?? DefoultConstant.empty)",
+                subtitle: "\(String(describing: weather.list.first?.desc))", body: """
+                \(NotificationConstant.maxTemp)\(TemperatureFormatter.temperatureFormatter(weather.list.first?.max)),
+                \(NotificationConstant.minTemp)\(TemperatureFormatter.temperatureFormatter(weather.list.first?.min))
+                """)
         }
     }
     
@@ -182,6 +196,12 @@ extension MainViewController {
         autocompleteController.delegate = self
         present(autocompleteController, animated: true, completion: nil)
     }
+    
+    @IBAction func locationButtonAction(_ sender: Any) {
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+    }
+    
 }
 
 // MARK: - VideoBackGround
