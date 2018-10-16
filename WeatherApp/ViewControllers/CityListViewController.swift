@@ -51,7 +51,8 @@ extension CityListViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cellCitytWeatherDB = listCity?[indexPath.row] else {
             return CityTableViewCell()
         }
-        let listWeather = DBManager.getWeatherForecastByCity(city: cellCitytWeatherDB)
+        let listWeather = DBManager.getWeatherForecastByCity(lat: cellCitytWeatherDB.lat,
+                                                             long: cellCitytWeatherDB.lon)?.first
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: CityTableViewCell.className,
                                                     for: indexPath) as? CityTableViewCell {
@@ -93,7 +94,7 @@ extension CityListViewController: UITableViewDelegate, UITableViewDataSource {
                 try realm.write {
                     guard let deletedWeatherForecast =
                         realm.objects(WeatherForecast.self).filter(DBManagerConstant.cityNameFilter,
-                                                                   deletedCity.name).first else {
+                                                                   deletedCity.lon, deletedCity.lat).first else {
                                                                     return
                     }
                     realm.delete(deletedWeatherForecast.list)

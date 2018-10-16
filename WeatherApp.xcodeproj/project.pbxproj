@@ -72,8 +72,6 @@
 		FADFEA70216E004C0041360B /* MainHourly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADFEA6F216E004C0041360B /* MainHourly.swift */; };
 		FADFEA72216E00800041360B /* WeatherH.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADFEA71216E00800041360B /* WeatherH.swift */; };
 		FADFEA74216E11040041360B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FADFEA73216E11040041360B /* Default-568h@2x.png */; };
-		FADFEA762170BD5B0041360B /* MainViewControllerExemple.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADFEA752170BD5B0041360B /* MainViewControllerExemple.swift */; };
-		FADFEA782170BDBE0041360B /* ApiWeatherExemple.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADFEA772170BDBE0041360B /* ApiWeatherExemple.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,8 +177,6 @@
 		FADFEA6F216E004C0041360B /* MainHourly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHourly.swift; sourceTree = "<group>"; };
 		FADFEA71216E00800041360B /* WeatherH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherH.swift; sourceTree = "<group>"; };
 		FADFEA73216E11040041360B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		FADFEA752170BD5B0041360B /* MainViewControllerExemple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerExemple.swift; sourceTree = "<group>"; };
-		FADFEA772170BDBE0041360B /* ApiWeatherExemple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiWeatherExemple.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -342,7 +338,6 @@
 			children = (
 				042EFB0220DBB472003B7A10 /* ApiWeather.swift */,
 				041B5A4C2164C17800E0ED84 /* ApiHourlyWeather.swift */,
-				FADFEA772170BDBE0041360B /* ApiWeatherExemple.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -386,7 +381,6 @@
 				04516FF0211F794900F62609 /* MainViewController.swift */,
 				04F6976F21522DB800DC393C /* CustomCollectionView.swift */,
 				04F6976D21522DA200DC393C /* CustomCollectionView.xib */,
-				FADFEA752170BD5B0041360B /* MainViewControllerExemple.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -740,7 +734,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				04E66F0120F35F83007A0F88 /* ReachabilityManager.swift in Sources */,
-				FADFEA762170BD5B0041360B /* MainViewControllerExemple.swift in Sources */,
 				042EFB0B20DBBE74003B7A10 /* WeatherForecast.swift in Sources */,
 				FA2D9F23216B5B0B00CF2E9C /* HourlyTableViewCell.swift in Sources */,
 				042EFB0D20DBBE74003B7A10 /* Weather.swift in Sources */,
@@ -763,7 +756,6 @@
 				046C0D6521661E6400127897 /* WeatherHourlyMainModel.swift in Sources */,
 				0401ED492153C51E00D5A2EA /* VerticallCollectionViewCell.swift in Sources */,
 				04A23B1E21088BE9008A2705 /* Location.swift in Sources */,
-				FADFEA782170BDBE0041360B /* ApiWeatherExemple.swift in Sources */,
 				04546C9820CBC974003D41C4 /* AppDelegate.swift in Sources */,
 				FADFEA72216E00800041360B /* WeatherH.swift in Sources */,
 				04F6977021522DB800DC393C /* CustomCollectionView.swift in Sources */,

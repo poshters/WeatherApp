@@ -9,15 +9,8 @@ final class MainViewController: UIViewController {
     @IBOutlet private var heightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var headerView: HeaderView!
     @IBOutlet private weak var customColectionView: CustomCollectionView!
-    @IBOutlet private weak var cityLabel: UILabel!
-    @IBOutlet private weak var date: UILabel!
-    @IBOutlet private weak var descLabel: UILabel!
-    @IBOutlet private weak var maxTemp: UILabel!
     
-    /// Instance
-    private(set) var weatherForecast = WeatherForecast()
-    
-    private var getApiWeather = WeatherForecast()
+    private var getWeather: WeatherForecast?
     private let refresh = UIRefreshControl()
     private let locationManager = CLLocationManager()
     private var avPlayer = AVPlayer()
@@ -25,40 +18,57 @@ final class MainViewController: UIViewController {
     private var paused: Bool = false
     private static let maxHeaderHeight: CGFloat = 200
     private static let minHeaderHeight: CGFloat = 154
-    private var titleCity: String = DefoultConstant.empty
-    
-    /// MainVC, set data in fields
-    func setDataMainVC() {
-        cityLabel.text = weatherForecast.city?.name ?? DefoultConstant.empty
-        date.text = DayOfWeeks.dayOfWeeks(date: weatherForecast.list[0].dateWeather)
-        descLabel.text = weatherForecast.list.first?.desc
-        maxTemp.text = TemperatureFormatter.temperatureFormatter((weatherForecast.list[0].max))
-    }
+    private var titleCity: String?
     
     // MARK: Refresh data in TableView
     @objc private func refreshData() {
         refresh.beginRefreshing()
-        checkData()
+        updateData()
         refresh.endRefreshing()
     }
     
-    /// Data validation in the database
-    private func checkData() {
-        let results = getDBApi(lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
-                               long: UserDefaults.standard.double(forKey: UserDefaultsConstant.longitude))
-        if results?.city == nil {
-            alertClose()
-        } else {
-            if let result = results {
-                weatherForecast = result
-                customColectionView.fill(weathers: weatherForecast)
-            }
+    /// Save data in Data Bases
+    private func updateData() {
+        ApiWeather().getWeatherForecastByCity(
+            lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
+            long: UserDefaults.standard.double(forKey: UserDefaultsConstant.longitude)) { [weak self] result, error in
+                DispatchQueue.main.async {
+                    if let result = result {
+                        UserDefaults.standard.set(result.city?.lat,
+                                                  forKey:
+                            UserDefaultsConstant.latitude)
+                        UserDefaults.standard.set(result.city?.lon,
+                                                  forKey:
+                            UserDefaultsConstant.longitude)
+                        DBManager.addDB(object: result)
+                        self?.getData()
+                    } else {
+                        print("\(String(describing: error?.localizedDescription))")
+                    }
+                }
+        }
+    }
+    
+    private func getData() {
+        let results = DBManager.getWeatherForecastByCity(
+            lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
+            long: UserDefaults.standard.double(forKey: UserDefaultsConstant.longitude))
+        self.getWeather = results?.first
+        if let weather = self.getWeather {
+            self.titleCity = weather.city?.name ?? DefoultConstant.empty
+            self.customColectionView.fill(weathers: weather)
+            self.headerView.accessToOutlet(
+                city: weather.city?.name ?? DefoultConstant.empty,
+                dayOfweeK: DayOfWeeks.dayOfWeeks(date: weather.list.first?.dateWeather),
+                temperature: TemperatureFormatter.temperatureFormatter(weather.list.first?.max),
+                desc: weather.list.first?.desc ?? DefoultConstant.empty,
+                icon: weather.list.first?.icon ?? DefoultConstant.empty)
         }
     }
     
     // MARK: - Alert
-    private func alertClose() {
-        let alert = UIAlertController(title: AlertConstant.title, message: AlertConstant.message,
+    private func alertClose(_ message: String? = nil) {
+        let alert = UIAlertController(title: AlertConstant.title, message: message ?? AlertConstant.message,
                                       preferredStyle: .alert)
         let alertAction = UIAlertAction(title: AlertConstant.actionTitle, style: .cancel) { (_) in
             self.refreshData()
@@ -67,31 +77,13 @@ final class MainViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    // MARK: - Save data in the database
-    func getDBApi(lat: Double, long: Double) -> WeatherForecast? {
-        getApiWeather = WeatherForecast()
-        if Reachability.isConnectedToNetwork() {
-            getApiWeather = ApiWeather().getWeatherForecastByCity(lat: lat, long: long )
-            DBManager.addDB(object: getApiWeather)
-            return getApiWeather
-        }
-        alertClose()
-        let results = DBManager.getWeatherForecastByCity(city: weatherForecast.city ?? City())
-        return results
-    }
+    var selectedRoW: Weather?
     
-    var selectedRoW = Weather()
-    
-    private func animationTransition() {
-        let transition = CATransition()
-        transition.duration = 0.45
-        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        transition.type = .moveIn
-        transition.subtype = .fromRight
-    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "infoVC" {
-            (segue.destination as? InfoViewController)?.selectedRow = selectedRoW
+        if let selectedRow = selectedRoW {
+            if segue.identifier == "infoVC" {
+                (segue.destination as? InfoViewController)?.selectedRow = selectedRow
+            }
         }
     }
 }
@@ -100,20 +92,14 @@ final class MainViewController: UIViewController {
 extension MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
-        self.navigationItem.title = DefoultConstant.title
         refreshData()
-        SheduleNotification.sheduleNotification(title: "\(weatherForecast.city?.name ?? DefoultConstant.empty)",
-            subtitle: "\(weatherForecast.list[0].desc)", body: """
-            \(NotificationConstant.maxTemp)\(TemperatureFormatter.temperatureFormatter(weatherForecast.list[0].max)),
-            \(NotificationConstant.minTemp)\(TemperatureFormatter.temperatureFormatter(weatherForecast.list[0].min))
-            """)
+        self.navigationItem.title = DefoultConstant.title
         customColectionView.backgroundColor = UIColor.clear
         customColectionView.customCollectionDelegate = self
         headerView.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        heightConstraint.constant = MainViewController.maxHeaderHeight
+        self.getData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -128,18 +114,11 @@ extension MainViewController {
         paused = true
         NotificationCenter.default.removeObserver(self)
         avPlayerLayer.player = nil
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        titleCity = weatherForecast.city?.name ?? DefoultConstant.empty
-        heightConstraint.constant = MainViewController.maxHeaderHeight
-        videoBackground(videoName: weatherForecast.list[0].icon)
-        headerView.accessToOutlet(city: weatherForecast.city?.name ?? DefoultConstant.empty,
-                                  dayOfweeK: DayOfWeeks.dayOfWeeks(date: weatherForecast.list[0].dateWeather),
-                                  temperature: TemperatureFormatter.temperatureFormatter(weatherForecast.list[0].max),
-                                  desc: weatherForecast.list[0].desc, icon: weatherForecast.list[0].icon)
+        self.videoBackground(videoName: self.getWeather?.list.first?.icon ?? DefoultConstant.empty)
     }
 }
 
@@ -167,7 +146,6 @@ extension MainViewController: GMSAutocompleteViewControllerDelegate {
         
         UserDefaults.standard.set(place.coordinate.latitude, forKey: UserDefaultsConstant.latitude)
         UserDefaults.standard.set(place.coordinate.longitude, forKey: UserDefaultsConstant.longitude)
-        customColectionView.refreshCollection()
         self.refreshData()
         
         dismiss(animated: true, completion: nil)
@@ -241,9 +219,11 @@ extension MainViewController {
 // MARK: - CustomCollectionViewDelegate
 extension MainViewController: CustomCollectionViewDelegate {
     func didSelectRowAt(_ collectionView: UICollectionView, indexPath: IndexPath) {
-        selectedRoW = weatherForecast.list[indexPath.row]
-        collectionView.deselectItem(at: indexPath, animated: false)
-        performSegue(withIdentifier: "infoVC", sender: self)
+        if let weatherAtIndex = getWeather?.list[indexPath.row] {
+            self.selectedRoW = weatherAtIndex
+            collectionView.deselectItem(at: indexPath, animated: false)
+            performSegue(withIdentifier: "infoVC", sender: self)
+        }
     }
     
     func didChangeOffsetY(_ offsetY: CGFloat) {

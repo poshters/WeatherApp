@@ -5,7 +5,7 @@ struct AppDelegateConstant {
 }
 
 struct DBManagerConstant {
-    static let cityNameFilter = "city.name = %@"
+    static let cityNameFilter = "city.lon = %@ AND city.lat = %@"
 }
 
 struct ApiWeatherConstant {

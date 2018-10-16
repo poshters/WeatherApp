@@ -31,7 +31,8 @@ class DBManager {
             let realm = try Realm()
             try realm.write {
                 realm.delete(realm.objects(WeatherForecast.self).filter(
-                    DBManagerConstant.cityNameFilter, object.city?.name ?? DefoultConstant.empty))
+                    DBManagerConstant.cityNameFilter, object.city?.lon ?? DefoultConstant.empty,
+                    object.city?.lat ?? DefoultConstant.empty))
                 realm.add(object, update: true)
             }
             return true
@@ -40,13 +41,10 @@ class DBManager {
         }
     }
     
-    class func  getWeatherForecastByCity(city: City?) -> WeatherForecast? {
-        guard let city = city else {
-            return nil
-        }
+    class func  getWeatherForecastByCity(lat: Double, long: Double) -> Results<WeatherForecast>? {
         do {
             let realm = try Realm()
-            let result = realm.objects(WeatherForecast.self).filter(DBManagerConstant.cityNameFilter, city.name).first
+            let result = realm.objects(WeatherForecast.self).filter(DBManagerConstant.cityNameFilter, long, lat)
             return result
             
         } catch {
@@ -72,7 +70,7 @@ class DBManager {
             let realm = try Realm()
             try realm.write {
                 let weatherHourlyList = realm.objects(WeatherHourlyMainModel.self).filter(
-                    DBManagerConstant.cityNameFilter, city.name)
+                    DBManagerConstant.cityNameFilter, city.lon, city.lat)
                 for weatherHourly in weatherHourlyList {
                     for listH in weatherHourly.list {
                         realm.delete(listH.main ?? MainHourly())
@@ -88,7 +86,7 @@ class DBManager {
         }
     }
     
-        class func  getWeatherForecastByCity(city: City, date: Int) -> [ListH]? {
+        class func  getWeatherForecastByCity(lat: Double, long: Double, date: Int) -> [ListH]? {
         do {
             let realm = try Realm()
             var dateCalendar = Date(timeIntervalSince1970: (TimeInterval(date)))
@@ -105,7 +103,7 @@ class DBManager {
             let first = currentTimeInMiliseconds(date: firstDate)
             let second = currentTimeInMiliseconds(date: secondDate ?? Date())
             let result = realm.objects(WeatherHourlyMainModel.self).filter(DBManagerConstant.cityNameFilter,
-                                                                           city.name ).first
+                                                                           long, lat).first
             var list = [ListH]()
             for weatherHourly in (result?.list) ?? List<ListH>() {
                 if weatherHourly.dateWeather > first && weatherHourly.dateWeather < second {
@@ -118,6 +116,22 @@ class DBManager {
         } catch {
             print(error.localizedDescription)
             return nil
+        }
+    }
+    
+    func getWeatherForecastByCity(city: City?, completion: ((WeatherForecast?, Error?) -> Void)? = nil) {
+        guard let city = city else {
+            completion?(nil, nil)
+            return
+        }
+        do {
+            let realm = try Realm()
+            let result = realm.objects(WeatherForecast.self).filter(DBManagerConstant.cityNameFilter, city.name).first
+            
+            completion?(result, nil)
+            
+        } catch {
+            completion?(nil, nil)
         }
     }
 }
