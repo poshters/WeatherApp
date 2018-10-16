@@ -55,7 +55,6 @@
 		04C0B84B210747F5008B208B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04C0B849210747F5008B208B /* Main.storyboard */; };
 		04DB690D2163776200700B66 /* HourlyHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DB690C2163776200700B66 /* HourlyHeaderView.swift */; };
 		04DB690F2163777F00700B66 /* HourlyHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DB690E2163777F00700B66 /* HourlyHeaderView.xib */; };
-		04E66F0120F35F83007A0F88 /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E66F0020F35F83007A0F88 /* ReachabilityManager.swift */; };
 		04EA36D8215136A100A63F34 /* DayOfWeeks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA36D7215136A100A63F34 /* DayOfWeeks.swift */; };
 		04EA36DA2151370F00A63F34 /* SheduleNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA36D92151370F00A63F34 /* SheduleNotification.swift */; };
 		04EA36E121515D7C00A63F34 /* HorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EA36DF21515D7C00A63F34 /* HorizontalCollectionViewCell.swift */; };
@@ -153,7 +152,6 @@
 		04C0B84F210748FE008B208B /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		04DB690C2163776200700B66 /* HourlyHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyHeaderView.swift; sourceTree = "<group>"; };
 		04DB690E2163777F00700B66 /* HourlyHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HourlyHeaderView.xib; sourceTree = "<group>"; };
-		04E66F0020F35F83007A0F88 /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		04EA36D7215136A100A63F34 /* DayOfWeeks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeeks.swift; sourceTree = "<group>"; };
 		04EA36D92151370F00A63F34 /* SheduleNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheduleNotification.swift; sourceTree = "<group>"; };
 		04EA36DF21515D7C00A63F34 /* HorizontalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -325,7 +323,6 @@
 			isa = PBXGroup;
 			children = (
 				046DC79A210771E5006B31D4 /* TemperatureFormatter.swift */,
-				04E66F0020F35F83007A0F88 /* ReachabilityManager.swift */,
 				04EA36D7215136A100A63F34 /* DayOfWeeks.swift */,
 				04EA36D92151370F00A63F34 /* SheduleNotification.swift */,
 				0426AD84216255F50083E452 /* Utils.swift */,
@@ -733,7 +730,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04E66F0120F35F83007A0F88 /* ReachabilityManager.swift in Sources */,
 				042EFB0B20DBBE74003B7A10 /* WeatherForecast.swift in Sources */,
 				FA2D9F23216B5B0B00CF2E9C /* HourlyTableViewCell.swift in Sources */,
 				042EFB0D20DBBE74003B7A10 /* Weather.swift in Sources */,
