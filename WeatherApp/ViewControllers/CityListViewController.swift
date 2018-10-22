@@ -75,9 +75,6 @@ extension CityListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        guard listCity?[indexPath.row] != listCity?.first  else {
-            return .none
-        }
         return .delete
     }
     

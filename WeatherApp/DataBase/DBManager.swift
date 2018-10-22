@@ -51,7 +51,7 @@ class DBManager {
             return nil
         }
     }
-     @discardableResult
+    @discardableResult
     class func addDBHourly(object: WeatherHourlyMainModel) -> Bool {
         do {
             let realm = try Realm()
@@ -86,7 +86,7 @@ class DBManager {
         }
     }
     
-        class func  getWeatherForecastByCity(lat: Double, long: Double, date: Int) -> [ListH]? {
+    class func  getWeatherForecastByCity(lat: Double, long: Double, date: Int) -> [ListH]? {
         do {
             let realm = try Realm()
             var dateCalendar = Date(timeIntervalSince1970: (TimeInterval(date)))
@@ -94,12 +94,12 @@ class DBManager {
             var calendar = Calendar.current
             let firstDate = calendar.startOfDay(for: dateCalendar)
             let secondDate = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: dateCalendar)
-
+            
             func currentTimeInMiliseconds(date: Date) -> Int {
                 let since1970 = date.timeIntervalSince1970
                 return Int(since1970)
             }
-                
+            
             let first = currentTimeInMiliseconds(date: firstDate)
             let second = currentTimeInMiliseconds(date: secondDate ?? Date())
             let result = realm.objects(WeatherHourlyMainModel.self).filter(DBManagerConstant.cityNameFilter,

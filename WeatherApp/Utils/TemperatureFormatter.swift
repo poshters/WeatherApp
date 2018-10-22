@@ -3,7 +3,7 @@ import Foundation
 final class TemperatureFormatter {
     static func temperatureFormatter(_ kelvinTemp: Double?) -> String {
         guard let kelvinTemp = kelvinTemp else {
-            return ""
+            return DefoultConstant.empty
         }
         
         let formatter = MeasurementFormatter()

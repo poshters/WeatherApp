@@ -34,7 +34,7 @@ final class DayOfWeeks {
     class func dayOfHours(date: Int) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(date))
         let dayOfWeek = DateFormatter()
-        dayOfWeek.dateFormat = "HH:mm"
+        dayOfWeek.dateFormat = DayOfWeeksConstant.hour
         return  "\(dayOfWeek.string(from: date))"
     }
     

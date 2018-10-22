@@ -36,6 +36,7 @@ struct DayOfWeeksConstant {
     static let day = "EEEE"
     static let abbreviatedMonth = "MMMd"
     static let month = "MMMMd"
+    static let hour = "HH:mm"
 }
 
 struct NotificationConstant {

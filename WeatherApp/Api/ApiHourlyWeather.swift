@@ -26,7 +26,7 @@ final class ApiHourlyWeather {
         }
         session.dataTask(with: weatherRequestURL) { (data, _, error) in
             guard let data = data else {
-                 completion?(nil, nil)
+                completion?(nil, nil)
                 return
                 
             }
@@ -37,10 +37,10 @@ final class ApiHourlyWeather {
             
             let jsonDecoder = JSONDecoder()
             do {
-               let responseModel = try jsonDecoder.decode(WeatherHourlyMainModel.self, from: data)
-                 completion?(responseModel, nil)
+                let responseModel = try jsonDecoder.decode(WeatherHourlyMainModel.self, from: data)
+                completion?(responseModel, nil)
             } catch {
-               completion?(nil, error)
+                completion?(nil, error)
                 print(error)
             }
             }

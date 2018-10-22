@@ -23,9 +23,9 @@ final class InfoViewController: UIViewController {
     func accessToOutlet() {
         let date = Date()
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.dateFormat = DayOfWeeksConstant.day
         let day = dateFormatter.string(from: date).capitalized
-        dateFormatter.dateFormat = "HH:mm"
+        dateFormatter.dateFormat = DayOfWeeksConstant.hour
         
         let dateString = dateFormatter.string(from: date)
         currentHourLabel?.text = dateString
@@ -38,20 +38,20 @@ final class InfoViewController: UIViewController {
         dayOfWeekLabel.text = DayOfWeeks.dayOfWeek(date: dayOfWeek)
     }
     
-///Save data in DataBase
-private func updateData() {
-    ApiHourlyWeather().weatherForecastByCity(
-        lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
-        long: UserDefaults.standard.double(forKey: UserDefaultsConstant.longitude)) { result, error in
-            DispatchQueue.main.async {
-                if let result = result {
-                    DBManager.addDBHourly(object: result)
-                    self.getData()
-                } else {
-                    print(String(describing: error?.localizedDescription))
+    ///Save data in DataBase
+    private func updateData() {
+        ApiHourlyWeather().weatherForecastByCity(
+            lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
+            long: UserDefaults.standard.double(forKey: UserDefaultsConstant.longitude)) { result, error in
+                DispatchQueue.main.async {
+                    if let result = result {
+                        DBManager.addDBHourly(object: result)
+                        self.getData()
+                    } else {
+                        print(String(describing: error?.localizedDescription))
+                    }
                 }
-                }
-            }
+        }
     }
     
     ///Get data with DataBase
@@ -61,8 +61,8 @@ private func updateData() {
             long: UserDefaults.standard.double(forKey: UserDefaultsConstant.longitude),
             date: self.selectedRow?.dateWeather ?? 0)
         self.tableView.reloadData()
-        }
     }
+}
 
 // MARK: - Life cycle
 extension InfoViewController {
@@ -144,20 +144,20 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-      
+        
         tableView.register(UINib(nibName: HourlyTableViewCell.className,
                                  bundle: nil), forCellReuseIdentifier: HourlyTableViewCell.className)
         if let cell = tableView.dequeueReusableCell(withIdentifier: HourlyTableViewCell.className,
                                                     for: indexPath) as? HourlyTableViewCell {
             if let listHourly = listHourly?[indexPath.row] {
-            cell.accessToOutlet(
-                dayOfweek: DayOfWeeks.timeToDay(hour: listHourly.dateWeather),
-                temp: TemperatureFormatter.temperatureFormatter(listHourly.main?.temp),
-                description: "\(listHourly.weather.first?.desc ?? DefoultConstant.empty)",
-                pressure: "\(Int(listHourly.main?.pressure ?? 0.0))\(WeatherAttributes.pressureSymbol)",
-                humidity: "\(listHourly.main?.humidity ?? 0)\(WeatherAttributes.humiditySymbol)")
-            cell.accessToImage(icon: listHourly.weather.first?.icon ?? DefoultConstant.empty)
-            return cell
+                cell.accessToOutlet(
+                    dayOfweek: DayOfWeeks.timeToDay(hour: listHourly.dateWeather),
+                    temp: TemperatureFormatter.temperatureFormatter(listHourly.main?.temp),
+                    description: "\(listHourly.weather.first?.desc ?? DefoultConstant.empty)",
+                    pressure: "\(Int(listHourly.main?.pressure ?? 0.0))\(WeatherAttributes.pressureSymbol)",
+                    humidity: "\(listHourly.main?.humidity ?? 0)\(WeatherAttributes.humiditySymbol)")
+                cell.accessToImage(icon: listHourly.weather.first?.icon ?? DefoultConstant.empty)
+                return cell
             }
         }
         return HourlyTableViewCell()
@@ -165,15 +165,15 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let listHourly = listHourly?[indexPath.row] {
-        currenTime(hours: listHourly.dateWeather,
-                   dayOfWeek: listHourly.dateWeather)
-        if indexPath.row == self.selectedIndexPath {
-            self.selectedIndexPath = nil
-        } else {
-            self.selectedIndexPath = indexPath.row
-        }
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
+            currenTime(hours: listHourly.dateWeather,
+                       dayOfWeek: listHourly.dateWeather)
+            if indexPath.row == self.selectedIndexPath {
+                self.selectedIndexPath = nil
+            } else {
+                self.selectedIndexPath = indexPath.row
+            }
+            self.tableView.beginUpdates()
+            self.tableView.endUpdates()
         }
     }
 }

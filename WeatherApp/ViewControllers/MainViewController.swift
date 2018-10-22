@@ -9,7 +9,7 @@ final class MainViewController: UIViewController {
     @IBOutlet private var heightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var headerView: HeaderView!
     @IBOutlet private weak var customColectionView: CustomCollectionView!
- 
+    
     private var getWeather: WeatherForecast?
     private let refresh = UIRefreshControl()
     private let locationManager = CLLocationManager()
@@ -73,9 +73,9 @@ final class MainViewController: UIViewController {
             
             ///Notification
             SheduleNotification.sheduleNotification(title: "\(weather.city?.name ?? DefoultConstant.empty)",
-                subtitle: "\(String(describing: weather.list.first?.desc))", body: """
-                \(NotificationConstant.maxTemp)\(TemperatureFormatter.temperatureFormatter(weather.list.first?.max)),
-                \(NotificationConstant.minTemp)\(TemperatureFormatter.temperatureFormatter(weather.list.first?.min))
+                subtitle: "\(String(describing: weather.list.first?.desc ?? DefoultConstant.empty))", body: """
+                \(NotificationConstant.maxTemp )\(TemperatureFormatter.temperatureFormatter(weather.list.first?.max)),
+                \(NotificationConstant.minTemp )\(TemperatureFormatter.temperatureFormatter(weather.list.first?.min))
                 """)
         }
     }
@@ -196,10 +196,22 @@ extension MainViewController {
         autocompleteController.delegate = self
         present(autocompleteController, animated: true, completion: nil)
     }
-    
+    /// Search for your location
     @IBAction func locationButtonAction(_ sender: Any) {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
+        self.customColectionView.refreshCollection()
+        //        avPlayer.play()
+        //        paused = true
+        //        avPlayerLayer.player = nil
+        //        self.videoBackground(videoName: self.getWeather?.list.first?.icon ?? DefoultConstant.empty)
+        //        avPlayerLayer.player = self.avPlayer
+        //        avPlayer.play()
+        //        paused = false
+    }
+    
+    func updateViewLocation() {
+        
     }
     
 }

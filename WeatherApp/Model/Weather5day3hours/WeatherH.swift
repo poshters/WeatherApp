@@ -11,8 +11,8 @@ import RealmSwift
 
 final class WeatherH: Object, Decodable {
     
-    @objc dynamic var desc: String = ""
-    @objc dynamic var icon: String = ""
+    @objc dynamic var desc: String = DefoultConstant.empty
+    @objc dynamic var icon: String = DefoultConstant.empty
     @objc dynamic var realmId = UUID().uuidString
     
     override static func primaryKey() -> String? {
