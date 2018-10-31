@@ -11,7 +11,6 @@ final class CityListViewController: UIViewController {
     
     /// SetImageBackground
     private func setImageBackground() {
-//        cityTableView.backgroundColor = UIColor(white: 1, alpha: 0.5)
         let backgroundImage = UIImageView(image: UIImage(named: OtherConstant.backgroundImage))
         backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false

@@ -15,11 +15,6 @@ final class HorizontalCollectionViewCell: UICollectionViewCell {
         trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-//        layer.cornerRadius = frame.width / 2
-    }
-    
     ///AccessToOutlet
     func accessToOutlet(date: String, icon: String) {
         self.dateWeatherLabel.text = date

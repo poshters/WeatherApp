@@ -20,7 +20,7 @@ final class MainViewController: UIViewController {
     private static let minHeaderHeight: CGFloat = 154
     private var titleCity: String?
     
-    // MARK: Refresh data in TableView
+    // MARK: - Refresh data in TableView
     @objc private func refreshData() {
         refresh.beginRefreshing()
         updateData()

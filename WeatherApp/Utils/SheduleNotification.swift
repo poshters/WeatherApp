@@ -21,7 +21,7 @@ final class SheduleNotification {
         center.add(request, withCompletionHandler: nil)
     }
     
-    class func removeNotifications(withIdentifers identifiers: [String]) {
+    final class func removeNotifications(withIdentifers identifiers: [String]) {
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: identifiers)
     }
