@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="CityCoreDate" representedClassName="CityCoreDate" syncable="YES" codeGenerationType="class">
+    <entity name="CityCoreData" representedClassName="CityCoreData" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="weatherForecast" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherForecastCoreDate" inverseName="city" inverseEntity="WeatherForecastCoreDate" syncable="YES"/>
     </entity>
@@ -28,14 +28,14 @@
         <relationship name="weatherForecast" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherForecastCoreDate" inverseName="weather" inverseEntity="WeatherForecastCoreDate" syncable="YES"/>
     </entity>
     <entity name="WeatherForecastCoreDate" representedClassName="WeatherForecastCoreDate" syncable="YES" codeGenerationType="class">
-        <relationship name="city" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CityCoreDate" inverseName="weatherForecast" inverseEntity="CityCoreDate" syncable="YES"/>
+        <relationship name="city" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CityCoreData" inverseName="weatherForecast" inverseEntity="CityCoreData" syncable="YES"/>
         <relationship name="coord" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CoordCoreDate" inverseName="weatherForecast" inverseEntity="CoordCoreDate" syncable="YES"/>
         <relationship name="descriptionCoreDate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DescriptionCoreData" inverseName="weatherForecaset" inverseEntity="DescriptionCoreData" syncable="YES"/>
         <relationship name="temperature" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TempretureCoreData" inverseName="weatherForecast" inverseEntity="TempretureCoreData" syncable="YES"/>
         <relationship name="weather" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WeaherCoreDate" inverseName="weatherForecast" inverseEntity="WeaherCoreDate" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CityCoreDate" positionX="-20.68359375" positionY="-205.8515625" width="128" height="73"/>
+        <element name="CityCoreData" positionX="-20.68359375" positionY="-205.8515625" width="128" height="75"/>
         <element name="CoordCoreDate" positionX="0.31640625" positionY="-87.7265625" width="128" height="90"/>
         <element name="DescriptionCoreData" positionX="-72" positionY="0" width="128" height="90"/>
         <element name="TempretureCoreData" positionX="-81" positionY="-9" width="128" height="90"/>

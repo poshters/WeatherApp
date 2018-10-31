@@ -9,7 +9,7 @@ struct DBManagerConstant {
 }
 
 struct ApiWeatherConstant {
-     static let openWeather5Day =  "https://api.openweathermap.org/data/2.5/forecast?"
+    static let openWeather5Day =  "https://api.openweathermap.org/data/2.5/forecast?"
     static let openWeatherMapBaseURL = "https://api.openweathermap.org/data/2.5/forecast/daily?"
     static let openWeatherMapAPIKey = "695ec8629eeaf925d9d4e9139ac14a69"
 }

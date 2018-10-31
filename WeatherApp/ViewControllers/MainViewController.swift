@@ -34,13 +34,9 @@ final class MainViewController: UIViewController {
             long: UserDefaults.standard.double(forKey: UserDefaultsConstant.longitude)) { [weak self] result, error in
                 DispatchQueue.main.async {
                     if let result = result {
-                        UserDefaults.standard.set(result.city?.lat,
-                                                  forKey:
-                            UserDefaultsConstant.latitude)
-                        UserDefaults.standard.set(result.city?.lon,
-                                                  forKey:
-                            UserDefaultsConstant.longitude)
                         DBManager.addDB(object: result)
+                        UserDefaults.standard.set(result.city?.lat, forKey: UserDefaultsConstant.latitude)
+                        UserDefaults.standard.set(result.city?.lon, forKey: UserDefaultsConstant.longitude)
                         self?.getData()
                     } else {
                         print("\(String(describing: error?.localizedDescription))")
@@ -74,8 +70,7 @@ final class MainViewController: UIViewController {
             ///Notification
             SheduleNotification.sheduleNotification(title: "\(weather.city?.name ?? DefoultConstant.empty)",
                 subtitle: "\(String(describing: weather.list.first?.desc ?? DefoultConstant.empty))", body: """
-                \(NotificationConstant.maxTemp )\(TemperatureFormatter.temperatureFormatter(weather.list.first?.max)),
-                \(NotificationConstant.minTemp )\(TemperatureFormatter.temperatureFormatter(weather.list.first?.min))
+                \(TemperatureFormatter.temperatureFormatter(weather.list.first?.max))
                 """)
         }
     }
@@ -114,12 +109,14 @@ extension MainViewController {
         headerView.backgroundColor = UIColor(white: 1, alpha: 0.5)
         heightConstraint.constant = MainViewController.maxHeaderHeight
         self.getData()
+        ApiWeather().getWeatherForecastByCity(
+            lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
+            long: UserDefaults.standard.double(forKey: UserDefaultsConstant.longitude))
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        avPlayerLayer.player = self.avPlayer
-        avPlayer.play()
-        paused = false
+        super.viewDidAppear(animated)
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -133,6 +130,9 @@ extension MainViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.videoBackground(videoName: self.getWeather?.list.first?.icon ?? DefoultConstant.empty)
+        avPlayerLayer.player = self.avPlayer
+        avPlayer.play()
+        paused = false
     }
 }
 
@@ -144,6 +144,7 @@ extension MainViewController: CLLocationManagerDelegate {
             UserDefaults.standard.set(lat, forKey: UserDefaultsConstant.latitude)
             UserDefaults.standard.set(long, forKey: UserDefaultsConstant.longitude)
             self.refreshData()
+            self.getData()
         } else {
             print(OtherConstant.noCordinates)
         }
@@ -161,7 +162,6 @@ extension MainViewController: GMSAutocompleteViewControllerDelegate {
         UserDefaults.standard.set(place.coordinate.latitude, forKey: UserDefaultsConstant.latitude)
         UserDefaults.standard.set(place.coordinate.longitude, forKey: UserDefaultsConstant.longitude)
         self.refreshData()
-        
         dismiss(animated: true, completion: nil)
     }
     
@@ -184,7 +184,6 @@ extension MainViewController: GMSAutocompleteViewControllerDelegate {
 
 // MARK: - UIButtonAction
 extension MainViewController {
-    
     /// ChengeScrollingCustomColectionView
     @IBAction func changeScrollColectionViewButton(_ sender: Any) {
         customColectionView.scrollChange()
@@ -196,22 +195,16 @@ extension MainViewController {
         autocompleteController.delegate = self
         present(autocompleteController, animated: true, completion: nil)
     }
+    
     /// Search for your location
     @IBAction func locationButtonAction(_ sender: Any) {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         self.customColectionView.refreshCollection()
-        //        avPlayer.play()
-        //        paused = true
-        //        avPlayerLayer.player = nil
-        //        self.videoBackground(videoName: self.getWeather?.list.first?.icon ?? DefoultConstant.empty)
-        //        avPlayerLayer.player = self.avPlayer
-        //        avPlayer.play()
-        //        paused = false
     }
     
-    func updateViewLocation() {
-        
+    /// Show CityListViewController
+    @IBAction func weatherListAction(_ sender: Any) {
     }
     
 }

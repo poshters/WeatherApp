@@ -1,12 +1,12 @@
 import Foundation
 import CoreLocation
+import CoreData
 
 final class ApiWeather {
-    private let lat = UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude)
-    private let long = UserDefaults.standard.double(forKey: UserDefaultsConstant.longitude)
     private let language = Locale.current.languageCode ?? DefoultConstant.empty
     
-    func getWeatherForecastByCity(lat: Double, long: Double, completion: ((WeatherForecast?, Error?) -> Void)? = nil) {
+    func getWeatherForecastByCity(lat: Double, long: Double,
+                                  completion: ((WeatherForecast?, Error?) -> Void)? = nil) {
         let session = URLSession.shared
         guard let weatherRequestURL = URL(string: urlApiOpenWeather(url: ApiWeatherConstant.openWeatherMapBaseURL,
                                                                     language: language,
@@ -23,6 +23,7 @@ final class ApiWeather {
                 return
                 
             }
+            
             guard error == nil else {
                 completion?(nil, error)
                 return

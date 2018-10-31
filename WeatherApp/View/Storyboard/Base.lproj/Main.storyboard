@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -42,14 +41,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ldj-hV-zdg"/>
                     </view>
-                    <toolbarItems>
-                        <barButtonItem title="Item" id="ctC-8s-EzL"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="SAW-nN-3b9">
                         <leftBarButtonItems>
                             <barButtonItem systemItem="organize" id="667-Zk-ckI">
                                 <connections>
-                                    <segue destination="CGT-7e-9eT" kind="show" id="69H-8E-mMK"/>
+                                    <segue destination="PbM-8T-B84" kind="show" id="i0d-YN-BHK"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Item" image="placeholder-2" id="AlK-Uw-qFi">
@@ -196,7 +193,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="idh-DR-gZe">
-                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexTrackingBackgroundColor" red="0.86545138889999995" green="0.39748806419999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -210,19 +207,19 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="e0E-5I-z1H">
                                                     <rect key="frame" x="15" y="11" width="269" height="69"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agt-dj-M13">
-                                                    <rect key="frame" x="298" y="12" width="62" height="26"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0r0-SU-ndl">
-                                                    <rect key="frame" x="298" y="59" width="62" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <rect key="frame" x="298" y="46" width="62" height="21"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Agt-dj-M13">
+                                                    <rect key="frame" x="298" y="17" width="62" height="26"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -233,10 +230,10 @@
                                                 <constraint firstItem="e0E-5I-z1H" firstAttribute="top" secondItem="Mlg-i2-dad" secondAttribute="topMargin" id="9t4-jX-gT1"/>
                                                 <constraint firstAttribute="trailing" secondItem="Agt-dj-M13" secondAttribute="trailing" constant="15" id="Bs0-cn-AXP"/>
                                                 <constraint firstItem="0r0-SU-ndl" firstAttribute="leading" secondItem="e0E-5I-z1H" secondAttribute="trailing" constant="14" id="CAh-RP-VR9"/>
-                                                <constraint firstItem="Agt-dj-M13" firstAttribute="top" secondItem="Mlg-i2-dad" secondAttribute="topMargin" constant="1" id="GIc-Xm-M9e"/>
+                                                <constraint firstItem="Agt-dj-M13" firstAttribute="top" secondItem="Mlg-i2-dad" secondAttribute="topMargin" constant="6" id="GIc-Xm-M9e"/>
                                                 <constraint firstItem="e0E-5I-z1H" firstAttribute="leading" secondItem="Mlg-i2-dad" secondAttribute="leadingMargin" id="UPk-xG-hU5"/>
                                                 <constraint firstItem="Agt-dj-M13" firstAttribute="leading" secondItem="e0E-5I-z1H" secondAttribute="trailing" constant="14" id="gSU-XB-zNP"/>
-                                                <constraint firstAttribute="bottom" secondItem="0r0-SU-ndl" secondAttribute="bottom" constant="11" id="i5A-sg-VBp"/>
+                                                <constraint firstAttribute="bottom" secondItem="0r0-SU-ndl" secondAttribute="bottom" constant="24" id="i5A-sg-VBp"/>
                                                 <constraint firstAttribute="trailing" secondItem="0r0-SU-ndl" secondAttribute="trailing" constant="15" id="lU9-TR-vHV"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -285,25 +282,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="thM-0U-Haf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="386" y="-525"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="k8K-em-UNQ">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CGT-7e-9eT" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="L8k-zD-REj">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="PbM-8T-B84" kind="relationship" relationship="rootViewController" id="WMR-O9-Rjn"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KuH-03-SjV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-512" y="-524"/>
+            <point key="canvasLocation" x="-388" y="-513"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5W9-Zy-aSi">
@@ -330,6 +309,7 @@
         <image name="placeholder-2" width="41.513511657714844" height="41.513511657714844"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="i0d-YN-BHK"/>
         <segue reference="Gs8-um-y6J"/>
     </inferredMetricsTieBreakers>
 </document>

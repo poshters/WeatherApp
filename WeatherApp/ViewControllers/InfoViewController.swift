@@ -144,7 +144,6 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         tableView.register(UINib(nibName: HourlyTableViewCell.className,
                                  bundle: nil), forCellReuseIdentifier: HourlyTableViewCell.className)
         if let cell = tableView.dequeueReusableCell(withIdentifier: HourlyTableViewCell.className,

@@ -22,7 +22,6 @@ final class City: Object, Decodable {
         let coord = try values.decode(Coord.self, forKey: .coord)
         lat = coord.lat
         lon = coord.lon
-        
     }
 }
 

@@ -2,6 +2,7 @@ import UIKit
 import GooglePlaces
 import UserNotifications
 import CoreData
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        CoreDataManager.sharedManager.saveContext()
+//        CoreDataManager.sharedManager.saveContext()
     }
-    
 }

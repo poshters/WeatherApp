@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CityCoreData" representedClassName=".CityCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="coord" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoordCoreData" inverseName="cityCD" inverseEntity="CoordCoreData" syncable="YES"/>
+        <relationship name="weatherForecst" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherForecastCoreData" inverseName="city" inverseEntity="WeatherForecastCoreData" syncable="YES"/>
+    </entity>
+    <entity name="CoordCoreData" representedClassName=".CoordCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="lon" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="cityCD" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CityCoreData" inverseName="coord" inverseEntity="CityCoreData" syncable="YES"/>
+    </entity>
+    <entity name="ListCoreData" representedClassName=".ListCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="deg" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="dt" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="humidity" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="pressure" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="speed" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="temp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TempCoreData" inverseName="listCD" inverseEntity="TempCoreData" syncable="YES"/>
+        <relationship name="weather" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WeatherCoreData" inverseName="listCD" inverseEntity="WeatherCoreData" syncable="YES"/>
+        <relationship name="weatherForecast" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherForecastCoreData" inverseName="list" inverseEntity="WeatherForecastCoreData" syncable="YES"/>
+    </entity>
+    <entity name="TempCoreData" representedClassName=".TempCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="max" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="min" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="listCD" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ListCoreData" inverseName="temp" inverseEntity="ListCoreData" syncable="YES"/>
+    </entity>
+    <entity name="WeatherCoreData" representedClassName=".WeatherCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="descriptionCD" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="icon" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="listCD" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ListCoreData" inverseName="weather" inverseEntity="ListCoreData" syncable="YES"/>
+    </entity>
+    <entity name="WeatherForecastCoreData" representedClassName=".WeatherForecastCoreData" syncable="YES" codeGenerationType="class">
+        <relationship name="city" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CityCoreData" inverseName="weatherForecst" inverseEntity="CityCoreData" syncable="YES"/>
+        <relationship name="list" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ListCoreData" inverseName="weatherForecast" inverseEntity="ListCoreData" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="CityCoreData" positionX="-9" positionY="36" width="128" height="90"/>
+        <element name="CoordCoreData" positionX="-9" positionY="54" width="128" height="90"/>
+        <element name="ListCoreData" positionX="18" positionY="90" width="128" height="165"/>
+        <element name="TempCoreData" positionX="27" positionY="144" width="128" height="90"/>
+        <element name="WeatherCoreData" positionX="45" positionY="153" width="128" height="90"/>
+        <element name="WeatherForecastCoreData" positionX="9" positionY="72" width="128" height="75"/>
+    </elements>
+</model>

@@ -36,8 +36,8 @@ class HourlyTableViewCell: UITableViewCell {
         hourlyPressureLabel.text = pressure
         hourlyHumidityLabel.text = humidity
     }
+    
     func accessToImage(icon: String) {
         humiudityIconImage.image = UIImage(named: icon)
     }
-    
 }

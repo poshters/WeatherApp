@@ -11,12 +11,13 @@ final class CityListViewController: UIViewController {
     
     /// SetImageBackground
     private func setImageBackground() {
-        cityTableView.backgroundColor = UIColor(white: 1, alpha: 0.5)
+//        cityTableView.backgroundColor = UIColor(white: 1, alpha: 0.5)
         let backgroundImage = UIImageView(image: UIImage(named: OtherConstant.backgroundImage))
         backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         self.view.insertSubview(backgroundImage, at: 0)
-        NSLayoutConstraint.activate([backgroundImage.leftAnchor.constraint(equalTo: view.leftAnchor),
+        NSLayoutConstraint.activate([backgroundImage.leftAnchor.constraint(
+            equalTo: view.leftAnchor),
                                      backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                                      backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
                                      backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor)])
@@ -39,7 +40,7 @@ extension CityListViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension CityListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        tableView.backgroundColor = UIColor(white: 1, alpha: 0.5)
+        tableView.backgroundColor = UIColor.clear
         return 100.0
     }
     
@@ -58,7 +59,7 @@ extension CityListViewController: UITableViewDelegate, UITableViewDataSource {
                                                     for: indexPath) as? CityTableViewCell {
             cell.setLabelData(city: cellCitytWeatherDB.name,
                               max: "\(TemperatureFormatter.temperatureFormatter(listWeather?.list.first?.max ?? 0))",
-                min: TemperatureFormatter.temperatureFormatter(listWeather?.list[0].min ?? 0))
+                min: TemperatureFormatter.temperatureFormatter(listWeather?.list.first?.min ?? 0))
             cell.backgroundColor = UIColor.clear
             cell.selectionStyle = .none
             return cell

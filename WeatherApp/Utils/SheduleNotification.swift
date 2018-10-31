@@ -1,5 +1,6 @@
 import Foundation
 import UserNotifications
+import UIKit
 
 final class SheduleNotification {
     class func sheduleNotification(title: String, subtitle: String, body: String) {
@@ -13,7 +14,7 @@ final class SheduleNotification {
         
         var dateComponents = DateComponents()
         dateComponents.hour = 09
-        dateComponents.minute = 21
+        dateComponents.minute = 52
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
         let center = UNUserNotificationCenter.current()

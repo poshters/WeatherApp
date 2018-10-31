@@ -63,7 +63,7 @@ final class HeaderView: UIView {
     /// PositionTemerature
     func position() {
         self.temerature.transform =
-            CGAffineTransform.identity.translatedBy(x: 110, y: 70).scaledBy(x: 0.38, y: 0.38)
+            CGAffineTransform.identity.translatedBy(x: 115, y: 78).scaledBy(x: 0.38, y: 0.38)
     }
     
     ///DefoultPositionTemerature
