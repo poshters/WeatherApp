@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol HeaderViewDalegate: class {
+    func buttonAction()
+}
+
 final class HeaderView: UIView {
     ///UI
     @IBOutlet private weak var iconWeathr: UIImageView!
@@ -19,6 +23,9 @@ final class HeaderView: UIView {
     @IBOutlet private weak var topConstraint: NSLayoutConstraint!
     @IBOutlet private weak var rightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var tempHeight: NSLayoutConstraint!
+    private var scrollvIew = UIScrollView()
+    private let mainVC = MainViewController()
+    weak var headerDelegate: HeaderViewDalegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,5 +76,9 @@ final class HeaderView: UIView {
     ///DefoultPositionTemerature
     func defoultPosition() {
         self.temerature.transform = CGAffineTransform.identity
+    }
+    
+    @IBAction func mapButtonAction(_ sender: Any) {
+       headerDelegate?.buttonAction()
     }
 }

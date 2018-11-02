@@ -1,8 +1,7 @@
 import UIKit
 import GooglePlaces
+import GoogleMaps
 import UserNotifications
-import CoreData
-import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -12,13 +11,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions
         launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         GMSPlacesClient.provideAPIKey(AppDelegateConstant.googleAPIKey)
+        GMSServices.provideAPIKey(AppDelegateConstant.googlMapAPIKey)
         let  center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { (_, _) in
         }
         return true
-    }
-    
-    func applicationWillTerminate(_ application: UIApplication) {
-        //        CoreDataManager.sharedManager.saveContext()
     }
 }

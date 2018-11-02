@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,7 +34,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="LaV-2s-0uO">
-                            <rect key="frame" x="8" y="37.5" width="304" height="23"/>
+                            <rect key="frame" x="8" y="37.5" width="236" height="23"/>
                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="19"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -55,20 +55,29 @@
                                 <constraint firstAttribute="width" constant="46" id="uAC-wL-Lju"/>
                             </constraints>
                         </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2fW-tk-XS3">
+                            <rect key="frame" x="250" y="12" width="51" height="51"/>
+                            <state key="normal" image="map-3"/>
+                            <connections>
+                                <action selector="mapButtonAction:" destination="-1" eventType="touchUpInside" id="IJr-ab-r0K"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="2fW-tk-XS3" secondAttribute="trailing" constant="19" id="060-a8-bgF"/>
                         <constraint firstItem="LaV-2s-0uO" firstAttribute="top" secondItem="1G5-4C-Tf9" secondAttribute="bottom" constant="3" id="3bh-6A-ZqN"/>
                         <constraint firstItem="q81-xe-Hyc" firstAttribute="centerY" secondItem="lTC-SM-eXr" secondAttribute="centerY" id="Aet-jQ-wLy"/>
                         <constraint firstItem="1sz-Ox-BxB" firstAttribute="top" secondItem="LaV-2s-0uO" secondAttribute="bottom" constant="102.5" id="BDx-uZ-RcV"/>
                         <constraint firstAttribute="bottom" secondItem="2FQ-uD-vRx" secondAttribute="bottom" constant="6" id="Cfs-NR-1I8"/>
+                        <constraint firstItem="2fW-tk-XS3" firstAttribute="top" secondItem="lTC-SM-eXr" secondAttribute="top" constant="12" id="Frl-oU-Rmr"/>
                         <constraint firstAttribute="trailing" secondItem="1G5-4C-Tf9" secondAttribute="trailing" constant="76" id="KAX-dd-sGW"/>
                         <constraint firstItem="q81-xe-Hyc" firstAttribute="centerX" secondItem="lTC-SM-eXr" secondAttribute="centerX" id="Kqt-Uc-ToD"/>
                         <constraint firstItem="LaV-2s-0uO" firstAttribute="leading" secondItem="lTC-SM-eXr" secondAttribute="leading" constant="8" id="Nh4-mU-Bw4"/>
                         <constraint firstItem="2FQ-uD-vRx" firstAttribute="leading" secondItem="lTC-SM-eXr" secondAttribute="leading" constant="15" id="USc-Uc-ryC"/>
                         <constraint firstItem="2FQ-uD-vRx" firstAttribute="top" secondItem="LaV-2s-0uO" secondAttribute="bottom" constant="98.5" id="WCw-lT-TLt"/>
                         <constraint firstItem="1G5-4C-Tf9" firstAttribute="top" secondItem="lTC-SM-eXr" secondAttribute="top" constant="8" id="WbK-FP-PTZ"/>
-                        <constraint firstAttribute="trailing" secondItem="LaV-2s-0uO" secondAttribute="trailing" constant="8" id="XZl-Jq-oas"/>
+                        <constraint firstAttribute="trailing" secondItem="LaV-2s-0uO" secondAttribute="trailing" constant="76" id="XZl-Jq-oas"/>
                         <constraint firstAttribute="trailing" secondItem="1sz-Ox-BxB" secondAttribute="trailing" constant="76" id="ZRG-vl-tMB"/>
                         <constraint firstItem="1sz-Ox-BxB" firstAttribute="leading" secondItem="2FQ-uD-vRx" secondAttribute="trailing" constant="14" id="a6h-Cb-3B9"/>
                         <constraint firstItem="1G5-4C-Tf9" firstAttribute="leading" secondItem="lTC-SM-eXr" secondAttribute="leading" constant="8" id="oh1-nb-nib"/>
@@ -88,5 +97,6 @@
     </objects>
     <resources>
         <image name="01d" width="409.60000610351562" height="409.60000610351562"/>
+        <image name="map-3" width="51.200000762939453" height="51.200000762939453"/>
     </resources>
 </document>

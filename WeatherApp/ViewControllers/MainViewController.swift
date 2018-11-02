@@ -9,7 +9,6 @@ final class MainViewController: UIViewController {
     @IBOutlet private var heightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var headerView: HeaderView!
     @IBOutlet private weak var customColectionView: CustomCollectionView!
-    
     private var getWeather: WeatherForecast?
     private let refresh = UIRefreshControl()
     private let locationManager = CLLocationManager()
@@ -112,11 +111,15 @@ extension MainViewController {
         ApiWeather().getWeatherForecastByCity(
             lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
             long: UserDefaults.standard.double(forKey: UserDefaultsConstant.longitude))
+        headerView.headerDelegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        self.videoBackground(videoName: self.getWeather?.list.first?.icon ?? DefoultConstant.empty)
+        avPlayerLayer.player = self.avPlayer
+        avPlayer.play()
+        paused = false
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -129,10 +132,8 @@ extension MainViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.videoBackground(videoName: self.getWeather?.list.first?.icon ?? DefoultConstant.empty)
-        avPlayerLayer.player = self.avPlayer
-        avPlayer.play()
-        paused = false
+        refreshData()
+        getData()
     }
 }
 
@@ -206,7 +207,6 @@ extension MainViewController {
     /// Show CityListViewController
     @IBAction func weatherListAction(_ sender: Any) {
     }
-    
 }
 
 // MARK: - VideoBackGround
@@ -281,5 +281,10 @@ extension MainViewController: CustomCollectionViewDelegate {
                 self.navigationItem.title = DefoultConstant.title
             }
         }
+    }
+}
+extension MainViewController: HeaderViewDalegate {
+    func buttonAction() {
+         tabBarController?.selectedIndex = 1
     }
 }

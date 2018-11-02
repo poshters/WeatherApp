@@ -37,11 +37,9 @@ class CustomCollectionView: UIView {
         collectionView.delegate = self
         collectionView.dataSource = self
         layout.scrollDirection = .horizontal
-        collectionView.register(UINib.init(nibName: VerticallCollectionViewCell.className,
-                                           bundle: nil),
+        collectionView.register(UINib.init(nibName: VerticallCollectionViewCell.className, bundle: nil),
                                 forCellWithReuseIdentifier: VerticallCollectionViewCell.className)
-        collectionView.register(UINib.init(nibName: HorizontalCollectionViewCell.className,
-                                           bundle: nil),
+        collectionView.register(UINib.init(nibName: HorizontalCollectionViewCell.className, bundle: nil),
                                 forCellWithReuseIdentifier: HorizontalCollectionViewCell.className)
         collectionView.backgroundColor = UIColor.clear
         collectionView.reloadData()
@@ -143,7 +141,7 @@ extension CustomCollectionView: UICollectionViewDelegateFlowLayout {
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         if layout.scrollDirection == .horizontal {
             let sectionInset = UIEdgeInsets(top: 200, left: UIScreen.main.bounds.width / 30,
-                                            bottom: UIScreen.main.bounds.height / 2.6 ,
+                                            bottom: UIScreen.main.bounds.height / 3.3 ,
                                             right: UIScreen.main.bounds.width / 30)
             return sectionInset
         } else {

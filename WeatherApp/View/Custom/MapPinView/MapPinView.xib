@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MapPinView" customModule="WeatherApp" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MapPinView" customModule="WeatherApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="269" height="137"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rWu-82-6u4" customClass="MapPinView" customModule="WeatherApp" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="269" height="137"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ivano-Frankivsk" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFo-2L-OzX">
+                            <rect key="frame" x="102" y="0.0" width="159" height="41"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Clear sky" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLc-xr-vcB">
+                            <rect key="frame" x="102" y="41" width="159" height="41"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="01d" translatesAutoresizingMaskIntoConstraints="NO" id="FSL-xn-51f">
+                            <rect key="frame" x="8" y="15" width="94" height="92"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="20°C" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XQw-X0-GXm">
+                            <rect key="frame" x="102" y="81" width="159" height="41"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="0.69694510980000002" blue="0.65594831990000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
+            <constraints>
+                <constraint firstItem="rWu-82-6u4" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="PyF-aS-3Aw"/>
+                <constraint firstItem="rWu-82-6u4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="S2Q-vR-Wfm"/>
+                <constraint firstItem="rWu-82-6u4" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="Tmu-ae-972"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rWu-82-6u4" secondAttribute="trailing" id="u9F-WF-gFZ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="cityLabel" destination="qFo-2L-OzX" id="tPT-bN-mVo"/>
+                <outlet property="contentView" destination="rWu-82-6u4" id="5uj-WY-bXX"/>
+                <outlet property="descriprionLabel" destination="SLc-xr-vcB" id="fgY-8E-aKH"/>
+                <outlet property="imageView" destination="FSL-xn-51f" id="aRD-qY-K3P"/>
+                <outlet property="temperatureLabel" destination="XQw-X0-GXm" id="Vak-bJ-Ria"/>
+            </connections>
+            <point key="canvasLocation" x="2.3999999999999999" y="-133.5832083958021"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="01d" width="409.60000610351562" height="409.60000610351562"/>
+    </resources>
+</document>

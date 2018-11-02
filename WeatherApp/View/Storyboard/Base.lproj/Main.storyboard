@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M2J-dz-s4b">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="EO4-Gy-UGO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,11 +19,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5D4-HR-fcQ" customClass="CustomCollectionView" customModule="WeatherApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="510"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6h7-yo-4SR" customClass="HeaderView" customModule="WeatherApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="200"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" identifier="height" id="BEN-0y-VR0"/>
@@ -78,7 +79,43 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qM5-Zj-7UZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="124" y="249"/>
+            <point key="canvasLocation" x="1063.2" y="248.72563718140933"/>
+        </scene>
+        <!--Delegate-->
+        <scene sceneID="AxQ-FM-GMn">
+            <objects>
+                <viewController id="q5w-ne-p5r" customClass="GoogleMapViewController" customModule="WeatherApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aF7-4V-uIt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="APs-h6-DuW" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="delegate" destination="q5w-ne-p5r" id="3aF-Ue-wLM"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="APs-h6-DuW" firstAttribute="top" secondItem="XuR-b5-MQ9" secondAttribute="top" id="4Dn-mZ-QPc"/>
+                            <constraint firstItem="XuR-b5-MQ9" firstAttribute="bottom" secondItem="APs-h6-DuW" secondAttribute="bottom" id="9dm-8a-0uw"/>
+                            <constraint firstItem="APs-h6-DuW" firstAttribute="leading" secondItem="XuR-b5-MQ9" secondAttribute="leading" id="bgn-b5-nGS"/>
+                            <constraint firstItem="XuR-b5-MQ9" firstAttribute="trailing" secondItem="APs-h6-DuW" secondAttribute="trailing" id="oWg-jy-Y8d"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="XuR-b5-MQ9"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" image="map-3" id="RLn-DI-eUA">
+                        <color key="badgeColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="mapView" destination="APs-h6-DuW" id="iTP-Ds-dug"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e3b-1k-nII" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1062" y="1010"/>
         </scene>
         <!--Info View Controller-->
         <scene sceneID="Sec-yT-LTN">
@@ -182,7 +219,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="1076" y="244.22788605697153"/>
+            <point key="canvasLocation" x="2015" y="271"/>
         </scene>
         <!--City List View Controller-->
         <scene sceneID="QIc-vJ-ZYn">
@@ -193,7 +230,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="idh-DR-gZe">
-                                <rect key="frame" x="0.0" y="20" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="510"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexTrackingBackgroundColor" red="0.86545138889999995" green="0.39748806419999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -282,12 +319,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="thM-0U-Haf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-388" y="-513"/>
+            <point key="canvasLocation" x="1063" y="-598"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5W9-Zy-aSi">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="M2J-dz-s4b" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" image="cloud-2" selectedImage="cloud-2" id="ofO-Or-5E3"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ldi-Yd-AYe">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -300,16 +338,36 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tgn-ZY-sMn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-818" y="250"/>
+            <point key="canvasLocation" x="120.8" y="249.62518740629687"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="KQl-7K-toc">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="EO4-Gy-UGO" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uHC-kz-XUX">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="M2J-dz-s4b" kind="relationship" relationship="viewControllers" id="v4D-Tm-dDg"/>
+                        <segue destination="q5w-ne-p5r" kind="relationship" relationship="viewControllers" id="t7p-cL-w9S"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6SM-lF-oI8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-756" y="244"/>
         </scene>
     </scenes>
     <resources>
         <image name="back" width="51.200000762939453" height="51.200000762939453"/>
         <image name="clock1" width="102.40000152587891" height="102.40000152587891"/>
+        <image name="cloud-2" width="51.200000762939453" height="51.200000762939453"/>
+        <image name="map-3" width="51.200000762939453" height="51.200000762939453"/>
         <image name="placeholder-2" width="41.513511657714844" height="41.513511657714844"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="i0d-YN-BHK"/>
-        <segue reference="Gs8-um-y6J"/>
+        <segue reference="Hfn-vr-IZV"/>
     </inferredMetricsTieBreakers>
 </document>

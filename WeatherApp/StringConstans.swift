@@ -2,6 +2,7 @@ import Foundation
 
 struct AppDelegateConstant {
     static let googleAPIKey = "AIzaSyBfjgKmGmrqf538QljpSddlvH9gXsMWk-M"
+    static let googlMapAPIKey = "AIzaSyCJr82MS0tzoxSRraEpD1B7kwAbRScu3nk"
 }
 
 struct DBManagerConstant {
@@ -70,4 +71,5 @@ struct OtherConstant {
     static let noCordinates = "No coordinates"
     static let error = "Error: "
     static let backgroundImage = "1"
+    static let pinImage = "placeholder-2"
 }
