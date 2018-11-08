@@ -73,3 +73,17 @@ struct OtherConstant {
     static let backgroundImage = "1"
     static let pinImage = "placeholder-2"
 }
+
+struct ProfileConstant {
+    static let success = "success"
+    static let success2 = "success2"
+    static let avatar = "Avatar"
+    static let user = "user"
+    static let edit = "Edit"
+    static let editing = "Save"
+    static let profileImage = "profile"
+}
+
+struct ProfileModelsConstant {
+    static let realmID = "realmID"
+}

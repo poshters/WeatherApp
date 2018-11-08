@@ -15,7 +15,6 @@
 		0412D1CB21025FED00FC6D99 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0412D1CA21025FED00FC6D99 /* MapKit.framework */; };
 		041B5A4D2164C17800E0ED84 /* ApiHourlyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041B5A4C2164C17800E0ED84 /* ApiHourlyWeather.swift */; };
 		0426AD85216255F50083E452 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0426AD84216255F50083E452 /* Utils.swift */; };
-		042A89A520E1155A0090861A /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042A89A420E1155A0090861A /* DBManager.swift */; };
 		042EFB0320DBB472003B7A10 /* ApiWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042EFB0220DBB472003B7A10 /* ApiWeather.swift */; };
 		042EFB0B20DBBE74003B7A10 /* WeatherForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042EFB0820DBBD7F003B7A10 /* WeatherForecast.swift */; };
 		0432D5A8211DA0B100522406 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = 0432D5A7211DA0B100522406 /* Assets */; };
@@ -66,13 +65,20 @@
 		FA2ABC202189CEAA000409C7 /* MapPinView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA2ABC1F2189CEAA000409C7 /* MapPinView.xib */; };
 		FA2ABC222189CF5C000409C7 /* MapPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2ABC212189CF5C000409C7 /* MapPinView.swift */; };
 		FA2D9F23216B5B0B00CF2E9C /* HourlyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2D9F22216B5B0B00CF2E9C /* HourlyTableViewCell.swift */; };
+		FA682B3C21907F9800C32360 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA682B3B21907F9800C32360 /* ProfileViewController.swift */; };
+		FA682B3E2190841E00C32360 /* ProfileCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA682B3D2190841E00C32360 /* ProfileCustomView.swift */; };
+		FA682B40219084B800C32360 /* ProfileCustomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA682B3F219084B800C32360 /* ProfileCustomView.xib */; };
 		FA7EEA612179EA2800F820CD /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7EEA602179EA2800F820CD /* Location.swift */; };
 		FA7EEA632179EA3400F820CD /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7EEA622179EA3400F820CD /* Weather.swift */; };
 		FA7EEA672179EA6C00F820CD /* WeatherHourlyMainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7EEA662179EA6C00F820CD /* WeatherHourlyMainModel.swift */; };
+		FAADD2C8219321FA00016EDE /* ProfileDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADD2C7219321FA00016EDE /* ProfileDBManager.swift */; };
+		FAADD2CA2193234400016EDE /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADD2C92193234400016EDE /* DBManager.swift */; };
 		FADFEA6C216DE4D20041360B /* HourlyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADFEA6A216DE4D20041360B /* HourlyTableViewCell.xib */; };
 		FADFEA6E216E000E0041360B /* ListH.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADFEA6D216E000E0041360B /* ListH.swift */; };
 		FADFEA70216E004C0041360B /* MainHourly.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADFEA6F216E004C0041360B /* MainHourly.swift */; };
 		FADFEA72216E00800041360B /* WeatherH.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADFEA71216E00800041360B /* WeatherH.swift */; };
+		FAE2DF612191859200BD7425 /* ProfileModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2DF602191859200BD7425 /* ProfileModels.swift */; };
+		FAE2DF682191C76F00BD7425 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE2DF672191C76F00BD7425 /* CameraManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,7 +109,6 @@
 		0412D1CA21025FED00FC6D99 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		041B5A4C2164C17800E0ED84 /* ApiHourlyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHourlyWeather.swift; sourceTree = "<group>"; };
 		0426AD84216255F50083E452 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		042A89A420E1155A0090861A /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		042EFB0220DBB472003B7A10 /* ApiWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiWeather.swift; sourceTree = "<group>"; };
 		042EFB0820DBBD7F003B7A10 /* WeatherForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherForecast.swift; sourceTree = "<group>"; };
 		0432D5A7211DA0B100522406 /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Assets; sourceTree = SOURCE_ROOT; };
@@ -170,13 +175,20 @@
 		FA2ABC1F2189CEAA000409C7 /* MapPinView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapPinView.xib; sourceTree = "<group>"; };
 		FA2ABC212189CF5C000409C7 /* MapPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPinView.swift; sourceTree = "<group>"; };
 		FA2D9F22216B5B0B00CF2E9C /* HourlyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyTableViewCell.swift; sourceTree = "<group>"; };
+		FA682B3B21907F9800C32360 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		FA682B3D2190841E00C32360 /* ProfileCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCustomView.swift; sourceTree = "<group>"; };
+		FA682B3F219084B800C32360 /* ProfileCustomView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCustomView.xib; sourceTree = "<group>"; };
 		FA7EEA602179EA2800F820CD /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		FA7EEA622179EA3400F820CD /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		FA7EEA662179EA6C00F820CD /* WeatherHourlyMainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHourlyMainModel.swift; sourceTree = "<group>"; };
+		FAADD2C7219321FA00016EDE /* ProfileDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDBManager.swift; sourceTree = "<group>"; };
+		FAADD2C92193234400016EDE /* DBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		FADFEA6A216DE4D20041360B /* HourlyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HourlyTableViewCell.xib; sourceTree = "<group>"; };
 		FADFEA6D216E000E0041360B /* ListH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListH.swift; sourceTree = "<group>"; };
 		FADFEA6F216E004C0041360B /* MainHourly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHourly.swift; sourceTree = "<group>"; };
 		FADFEA71216E00800041360B /* WeatherH.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherH.swift; sourceTree = "<group>"; };
+		FAE2DF602191859200BD7425 /* ProfileModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModels.swift; sourceTree = "<group>"; };
+		FAE2DF672191C76F00BD7425 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +247,7 @@
 			children = (
 				041B5A4F2164C21E00E0ED84 /* Weather5day3hours */,
 				041B5A4E2164C1D100E0ED84 /* Weather14Day */,
+				FAE2DF602191859200BD7425 /* ProfileModels.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -324,6 +337,7 @@
 				04EA36D7215136A100A63F34 /* DayOfWeeks.swift */,
 				04EA36D92151370F00A63F34 /* SheduleNotification.swift */,
 				0426AD84216255F50083E452 /* Utils.swift */,
+				FAE2DF672191C76F00BD7425 /* CameraManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -340,7 +354,8 @@
 		04A23B202108B187008A2705 /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
-				042A89A420E1155A0090861A /* DBManager.swift */,
+				FAADD2C92193234400016EDE /* DBManager.swift */,
+				FAADD2C7219321FA00016EDE /* ProfileDBManager.swift */,
 			);
 			path = DataBase;
 			sourceTree = "<group>";
@@ -374,6 +389,7 @@
 				04F6976F21522DB800DC393C /* CustomCollectionView.swift */,
 				04F6976D21522DA200DC393C /* CustomCollectionView.xib */,
 				FA2ABC1D2189AFF7000409C7 /* GoogleMapViewController.swift */,
+				FA682B3B21907F9800C32360 /* ProfileViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -436,11 +452,21 @@
 			isa = PBXGroup;
 			children = (
 				046C0D66216651B500127897 /* CustomButton.swift */,
+				FA682B412190972A00C32360 /* ProfileCustomView */,
 				FA91DE27218B03B3009CE883 /* HeaderView */,
 				FA91DE26218B03A2009CE883 /* HourlyHeaderView */,
 				FA91DE25218B0392009CE883 /* MapPinView */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		FA682B412190972A00C32360 /* ProfileCustomView */ = {
+			isa = PBXGroup;
+			children = (
+				FA682B3D2190841E00C32360 /* ProfileCustomView.swift */,
+				FA682B3F219084B800C32360 /* ProfileCustomView.xib */,
+			);
+			path = ProfileCustomView;
 			sourceTree = "<group>";
 		};
 		FA91DE23218B01AF009CE883 /* HorizontalCollectionViewCell */ = {
@@ -629,6 +655,7 @@
 				0432D5C8211DA17300522406 /* 02n.mp4 in Resources */,
 				0432D5C0211DA17300522406 /* 10n.mp4 in Resources */,
 				FA2ABC202189CEAA000409C7 /* MapPinView.xib in Resources */,
+				FA682B40219084B800C32360 /* ProfileCustomView.xib in Resources */,
 				0432D5C1211DA17300522406 /* 01d.mp4 in Resources */,
 				04EA36E221515D7C00A63F34 /* HorizontalCollectionViewCell.xib in Resources */,
 				FADFEA6C216DE4D20041360B /* HourlyTableViewCell.xib in Resources */,
@@ -723,12 +750,14 @@
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -742,11 +771,27 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-WeatherApp/Pods-WeatherApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 			);
@@ -788,26 +833,31 @@
 				04EA36E121515D7C00A63F34 /* HorizontalCollectionViewCell.swift in Sources */,
 				04496C7020E53F230054EBED /* InfoViewController.swift in Sources */,
 				FA7EEA612179EA2800F820CD /* Location.swift in Sources */,
-				042A89A520E1155A0090861A /* DBManager.swift in Sources */,
 				FA7EEA632179EA3400F820CD /* Weather.swift in Sources */,
 				0432D5D0211DEE9B00522406 /* CityTableViewCell.swift in Sources */,
 				04516FF1211F794900F62609 /* MainViewController.swift in Sources */,
+				FAADD2CA2193234400016EDE /* DBManager.swift in Sources */,
+				FAE2DF682191C76F00BD7425 /* CameraManager.swift in Sources */,
 				04EA36D8215136A100A63F34 /* DayOfWeeks.swift in Sources */,
 				0432D5CE211DEE4E00522406 /* CityListViewController.swift in Sources */,
 				04118AD0215961E8000C3AF3 /* HeaderView.swift in Sources */,
 				FA2ABC1E2189AFF7000409C7 /* GoogleMapViewController.swift in Sources */,
 				04EA36DA2151370F00A63F34 /* SheduleNotification.swift in Sources */,
 				04DB690D2163776200700B66 /* HourlyHeaderView.swift in Sources */,
+				FAADD2C8219321FA00016EDE /* ProfileDBManager.swift in Sources */,
 				FADFEA70216E004C0041360B /* MainHourly.swift in Sources */,
 				0426AD85216255F50083E452 /* Utils.swift in Sources */,
+				FA682B3E2190841E00C32360 /* ProfileCustomView.swift in Sources */,
 				FADFEA6E216E000E0041360B /* ListH.swift in Sources */,
 				042EFB0320DBB472003B7A10 /* ApiWeather.swift in Sources */,
 				0401ED492153C51E00D5A2EA /* VerticallCollectionViewCell.swift in Sources */,
 				04546C9820CBC974003D41C4 /* AppDelegate.swift in Sources */,
+				FA682B3C21907F9800C32360 /* ProfileViewController.swift in Sources */,
 				FADFEA72216E00800041360B /* WeatherH.swift in Sources */,
 				04F6977021522DB800DC393C /* CustomCollectionView.swift in Sources */,
 				FA7EEA672179EA6C00F820CD /* WeatherHourlyMainModel.swift in Sources */,
 				041B5A4D2164C17800E0ED84 /* ApiHourlyWeather.swift in Sources */,
+				FAE2DF612191859200BD7425 /* ProfileModels.swift in Sources */,
 				040A30302154E08900550BF3 /* StringConstans.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

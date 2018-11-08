@@ -8,8 +8,10 @@ target 'WeatherApp' do
    pod 'RealmSwift'
    pod 'GooglePlaces'
    pod 'GooglePlacePicker'
-   pod 'GoogleMaps'  
-
+   pod 'GoogleMaps'
+   pod 'GoogleSignIn'
+   pod 'FacebookLogin'
+  
 
  target 'WeatherAppTests' do
     inherit! :search_paths
