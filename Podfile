@@ -10,7 +10,10 @@ target 'WeatherApp' do
    pod 'GooglePlacePicker'
    pod 'GoogleMaps'
    pod 'GoogleSignIn'
-   pod 'FacebookLogin'
+   pod 'FacebookCore' 
+   pod 'FacebookLogin' 
+  
+ 
   
 
  target 'WeatherAppTests' do

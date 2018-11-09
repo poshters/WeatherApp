@@ -10,7 +10,7 @@ import UIKit
 
 protocol ProfileCustomViewDelegate: class {
     func changeButtonMale(maleButton: UIButton, womanButton: UIButton)
-     func changeButtonWoman(maleButton: UIButton, womanButton: UIButton)
+    func changeButtonWoman(maleButton: UIButton, womanButton: UIButton)
 }
 
 class ProfileCustomView: UIView {
@@ -19,7 +19,6 @@ class ProfileCustomView: UIView {
     @IBOutlet private weak var womanButton: UIButton!
     @IBOutlet private weak var contentView: UIView!
     @IBOutlet private weak var stackView: UIStackView!
-    private let profilModel = ProfileModels()
     weak var profileCustomViewDelegate: ProfileCustomViewDelegate?
     
     override init(frame: CGRect) {
@@ -42,8 +41,8 @@ class ProfileCustomView: UIView {
         trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         maleButton.setImage(UIImage(named: ProfileConstant.success2), for: .normal)
         womanButton.setImage(UIImage(named: ProfileConstant.success2), for: .normal)
-        disbleButton(editable: true)
-        }
+        disableButton(disable: true)
+    }
     
     ///Set Image to Male and Woman button
     func setImageToButtonMaleAndWoman(male: String, woman: String) {
@@ -51,8 +50,8 @@ class ProfileCustomView: UIView {
         womanButton.setImage(UIImage(named: woman), for: .normal)
     }
     
-    func disbleButton(editable: Bool = true) {
-        if editable {
+    func disableButton(disable: Bool = true) {
+        if disable {
             maleButton.isEnabled = false
             womanButton.isEnabled = false
         } else {

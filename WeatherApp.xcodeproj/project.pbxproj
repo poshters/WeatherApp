@@ -71,6 +71,7 @@
 		FA7EEA612179EA2800F820CD /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7EEA602179EA2800F820CD /* Location.swift */; };
 		FA7EEA632179EA3400F820CD /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7EEA622179EA3400F820CD /* Weather.swift */; };
 		FA7EEA672179EA6C00F820CD /* WeatherHourlyMainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7EEA662179EA6C00F820CD /* WeatherHourlyMainModel.swift */; };
+		FA92DDF421942FFF00066D2D /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA92DDF321942FFF00066D2D /* credentials.plist */; };
 		FAADD2C8219321FA00016EDE /* ProfileDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADD2C7219321FA00016EDE /* ProfileDBManager.swift */; };
 		FAADD2CA2193234400016EDE /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAADD2C92193234400016EDE /* DBManager.swift */; };
 		FADFEA6C216DE4D20041360B /* HourlyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADFEA6A216DE4D20041360B /* HourlyTableViewCell.xib */; };
@@ -181,6 +182,8 @@
 		FA7EEA602179EA2800F820CD /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		FA7EEA622179EA3400F820CD /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		FA7EEA662179EA6C00F820CD /* WeatherHourlyMainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHourlyMainModel.swift; sourceTree = "<group>"; };
+		FA92DDF321942FFF00066D2D /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = credentials.plist; path = ../../../Downloads/credentials.plist; sourceTree = "<group>"; };
+		FA92DDF52194647800066D2D /* WeatherApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeatherApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		FAADD2C7219321FA00016EDE /* ProfileDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDBManager.swift; sourceTree = "<group>"; };
 		FAADD2C92193234400016EDE /* DBManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
 		FADFEA6A216DE4D20041360B /* HourlyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HourlyTableViewCell.xib; sourceTree = "<group>"; };
@@ -296,6 +299,8 @@
 		04546C9620CBC974003D41C4 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				FA92DDF52194647800066D2D /* WeatherApp-Bridging-Header.h */,
+				FA92DDF321942FFF00066D2D /* credentials.plist */,
 				04F8DCDB20E1772400DD5F27 /* .gitignore */,
 				04546CA320CBC974003D41C4 /* Info.plist */,
 				04546C9720CBC974003D41C4 /* AppDelegate.swift */,
@@ -597,7 +602,7 @@
 				TargetAttributes = {
 					04546C9320CBC974003D41C4 = {
 						CreatedOnToolsVersion = 9.2;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 					04546CA720CBC974003D41C4 = {
@@ -664,6 +669,7 @@
 				0432D5CB211DA17300522406 /* 02d.mp4 in Resources */,
 				04DB690F2163777F00700B66 /* HourlyHeaderView.xib in Resources */,
 				04C0B848210747E0008B208B /* LaunchScreen.storyboard in Resources */,
+				FA92DDF421942FFF00066D2D /* credentials.plist in Resources */,
 				04F8DCDC20E1772400DD5F27 /* .gitignore in Resources */,
 				0432D5CC211DA17300522406 /* 09n.mp4 in Resources */,
 				0432D5CA211DA17300522406 /* 01n.mp4 in Resources */,
@@ -1046,7 +1052,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "roman-mihaylovich.com.WeatherApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WeatherApp/WeatherApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1069,7 +1075,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "roman-mihaylovich.com.WeatherApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "WeatherApp/WeatherApp-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

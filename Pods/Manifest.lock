@@ -54,6 +54,7 @@ PODS:
     - Realm (= 3.11.1)
 
 DEPENDENCIES:
+  - FacebookCore
   - FacebookLogin
   - GoogleMaps
   - GooglePlacePicker
@@ -94,6 +95,6 @@ SPEC CHECKSUMS:
   Realm: 037c5919b9ceb59d6beed5d3b031096856b119b3
   RealmSwift: c9580133e73ef40ed340401af2dbc9a5790dfea7
 
-PODFILE CHECKSUM: f52ac0798e5594fda308a8b49de1d5ec64d907a6
+PODFILE CHECKSUM: 92358eef158e62a0dd7c59b087edd1e4822439c0
 
 COCOAPODS: 1.5.3

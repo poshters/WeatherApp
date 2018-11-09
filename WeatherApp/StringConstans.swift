@@ -3,6 +3,7 @@ import Foundation
 struct AppDelegateConstant {
     static let googleAPIKey = "AIzaSyBfjgKmGmrqf538QljpSddlvH9gXsMWk-M"
     static let googlMapAPIKey = "AIzaSyCJr82MS0tzoxSRraEpD1B7kwAbRScu3nk"
+    static let googleSignIn = "666421218602-m5nrhrs94k5mk9sibosbi8o4fnmstl1l.apps.googleusercontent.com"
 }
 
 struct DBManagerConstant {

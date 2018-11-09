@@ -116,10 +116,7 @@ extension MainViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.videoBackground(videoName: self.getWeather?.list.first?.icon ?? DefoultConstant.empty)
-        avPlayerLayer.player = self.avPlayer
-        avPlayer.play()
-        paused = false
+     
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -134,6 +131,10 @@ extension MainViewController {
         super.viewWillAppear(animated)
         refreshData()
         getData()
+        self.videoBackground(videoName: self.getWeather?.list.first?.icon ?? DefoultConstant.empty)
+        avPlayerLayer.player = self.avPlayer
+        avPlayer.play()
+        paused = false
     }
 }
 
