@@ -68,6 +68,7 @@ final class Weather: Object, Decodable {
         self.init( desc: desc, icon: icon, dateWeather: dateWeather, pressure: pressure,
                    humidity: humidity, speed: speed, deg: deg, min: min, max: max)
     }
+    
     required init() {
         super.init()
     }

@@ -5,6 +5,12 @@ import CoreData
 final class ApiWeather {
     private let language = Locale.current.languageCode ?? DefoultConstant.empty
     
+    /// Get weather forecast
+    ///
+    /// - Parameters:
+    ///   - lat: latitude
+    ///   - long: longitude
+    ///   - completion: WeatherForecast
     func getWeatherForecastByCity(lat: Double, long: Double,
                                   completion: ((WeatherForecast?, Error?) -> Void)? = nil) {
         let session = URLSession.shared
@@ -42,6 +48,14 @@ final class ApiWeather {
     }
     
     /// URl OpenWeatherMap
+    ///
+    /// - Parameters:
+    ///   - url: url String
+    ///   - language: String
+    ///   - apiKey: String
+    ///   - lat: Double
+    ///   - lon: Double
+    /// - Returns: String
     private func urlApiOpenWeather(url: String, language: String, apiKey: String, lat: Double, lon: Double) -> String {
         return "\(url)lat=\(lat)&lon=\(lon)&cnt=14&lang=\(language)&APPID=\(apiKey)"
     }

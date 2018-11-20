@@ -88,3 +88,9 @@ struct ProfileConstant {
 struct ProfileModelsConstant {
     static let realmID = "realmID"
 }
+
+struct CheckButtonConstants {
+    static let strokeEnd = "strokeEnd"
+    static let animationCycle = "animationCycle"
+    static let animationLine = "animationLine"
+}

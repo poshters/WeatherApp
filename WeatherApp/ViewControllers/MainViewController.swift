@@ -3,30 +3,38 @@ import RealmSwift
 import CoreLocation
 import GooglePlaces
 import AVFoundation
+import FacebookShare
+import FBSDKShareKit
+import Firebase
 
 final class MainViewController: UIViewController {
-    ///UI
+    // MARK: - UI
     @IBOutlet private var heightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var headerView: HeaderView!
     @IBOutlet private weak var customColectionView: CustomCollectionView!
-    private var getWeather: WeatherForecast?
     private let refresh = UIRefreshControl()
+    
+    // MARK: - Instance
+    private var getWeather: WeatherForecast?
     private let locationManager = CLLocationManager()
     private var avPlayer = AVPlayer()
     private var avPlayerLayer = AVPlayerLayer()
     private var paused: Bool = false
+    private var titleCity: String?
+    var selectedRoW: Weather?
+    
+    // MARK: - Static
     private static let maxHeaderHeight: CGFloat = 200
     private static let minHeaderHeight: CGFloat = 154
-    private var titleCity: String?
     
-    // MARK: - Refresh data in TableView
+    /// Refresh data in TableView
     @objc private func refreshData() {
         refresh.beginRefreshing()
         updateData()
         refresh.endRefreshing()
     }
     
-    /// Save data in Data Base
+    /// Save data in data base
     private func updateData() {
         ApiWeather().getWeatherForecastByCity(
             lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
@@ -44,7 +52,7 @@ final class MainViewController: UIViewController {
         }
     }
     
-    /// Get data with Data Base
+    /// Get data with data base
     private func getData() {
         let results = DBManager.getWeatherForecastByCity(
             lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
@@ -52,13 +60,13 @@ final class MainViewController: UIViewController {
         self.getWeather = results?.first
         if let weather = self.getWeather {
             
-            /// set name city in NavigetionTitle
+            // set name city in NavigetionTitle
             self.titleCity = weather.city?.name ?? DefoultConstant.empty
             
-            /// set data in CollectionView
+            // set data in CollectionView
             self.customColectionView.fill(weathers: weather)
             
-            /// set data in HeaderView
+            // set data in HeaderView
             self.headerView.accessToOutlet(
                 city: weather.city?.name ?? DefoultConstant.empty,
                 dayOfweeK: DayOfWeeks.dayOfWeeks(date: weather.list.first?.dateWeather),
@@ -66,7 +74,7 @@ final class MainViewController: UIViewController {
                 desc: weather.list.first?.desc ?? DefoultConstant.empty,
                 icon: weather.list.first?.icon ?? DefoultConstant.empty)
             
-            ///Notification
+            // set data in Notification
             SheduleNotification.sheduleNotification(title: "\(weather.city?.name ?? DefoultConstant.empty)",
                 subtitle: "\(String(describing: weather.list.first?.desc ?? DefoultConstant.empty))", body: """
                 \(TemperatureFormatter.temperatureFormatter(weather.list.first?.max))
@@ -74,7 +82,9 @@ final class MainViewController: UIViewController {
         }
     }
     
-    // MARK: - Alert
+    /// Alert Close
+    /// Called when there is no connection to the Internet
+    /// - Parameter message: allert message
     private func alertClose(_ message: String? = nil) {
         let alert = UIAlertController(title: AlertConstant.title, message: message ?? AlertConstant.message,
                                       preferredStyle: .alert)
@@ -85,8 +95,11 @@ final class MainViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    var selectedRoW: Weather?
-    
+    /// Prepare
+    ///
+    /// - Parameters:
+    ///   - segue: UIStoryboardSegue
+    ///   - sender: Any
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let selectedRow = selectedRoW {
             if segue.identifier == "infoVC" {
@@ -96,10 +109,11 @@ final class MainViewController: UIViewController {
     }
 }
 
-// MARK: - Life Cycle
+// MARK: - Life cycle
 extension MainViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        Analytics.logEvent("MainVC", parameters: nil)
         locationManager.delegate = self
         refreshData()
         self.navigationItem.title = DefoultConstant.title
@@ -116,7 +130,7 @@ extension MainViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-     
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -138,7 +152,7 @@ extension MainViewController {
     }
 }
 
-// MARK: - CurrentLocation
+// MARK: - CLLocationManagerDelegate
 extension MainViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let lat = locations.last?.coordinate.latitude,
@@ -157,7 +171,7 @@ extension MainViewController: CLLocationManagerDelegate {
     }
 }
 
-// MARK: - Сity ​​search
+// MARK: - GMSAutocompleteViewControllerDelegate
 extension MainViewController: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         
@@ -184,34 +198,50 @@ extension MainViewController: GMSAutocompleteViewControllerDelegate {
     }
 }
 
-// MARK: - UIButtonAction
+// MARK: - UIButton action
 extension MainViewController {
-    /// ChengeScrollingCustomColectionView
+    
+    /// Change scrolling custom ColectionView
+    ///
+    /// - Parameter sender: Any
     @IBAction func changeScrollColectionViewButton(_ sender: Any) {
         customColectionView.scrollChange()
+        Analytics.logEvent("ChangeScroll", parameters: nil)
     }
     
-    /// FindeCityButton
+    /// Finde city button
+    ///
+    /// - Parameter sender: Any
     @IBAction func findeCityButton(_ sender: Any) {
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
         present(autocompleteController, animated: true, completion: nil)
+        Analytics.logEvent("FindeCityButton", parameters: nil)
     }
     
     /// Search for your location
+    ///
+    /// - Parameter sender: Any
     @IBAction func locationButtonAction(_ sender: Any) {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
         self.customColectionView.refreshCollection()
+        Analytics.logEvent("FindeLocationButton", parameters: nil)
     }
-    
+
     /// Show CityListViewController
+    ///
+    /// - Parameter sender: Any
     @IBAction func weatherListAction(_ sender: Any) {
+    Analytics.logEvent("ShowCityListVC", parameters: nil)
     }
 }
 
-// MARK: - VideoBackGround
+// MARK: - Video background
 extension MainViewController {
+    /// Set video background
+    ///
+    /// - Parameter videoName: String
     func videoBackground(videoName: String) {
         guard let theURL = Bundle.main.url(forResource: videoName, withExtension: "mp4")
             else {
@@ -234,6 +264,9 @@ extension MainViewController {
         
     }
     
+    /// Player item did reach end
+    ///
+    /// - Parameter notification: Notification
     @objc func playerItemDidReachEnd(notification: Notification) {
         guard let pusk: AVPlayerItem = notification.object as? AVPlayerItem else {
             return
@@ -249,9 +282,13 @@ extension MainViewController: CustomCollectionViewDelegate {
             self.selectedRoW = weatherAtIndex
             collectionView.deselectItem(at: indexPath, animated: false)
             performSegue(withIdentifier: "infoVC", sender: self)
+            Analytics.logEvent("SelectCell", parameters: nil)
         }
     }
     
+    /// HeaderView collapse expand
+    ///
+    /// - Parameter offsetY: offset Y, type: CGFloat
     func didChangeOffsetY(_ offsetY: CGFloat) {
         let offset = offsetY
         var headerTransform = CATransform3DIdentity
@@ -284,8 +321,66 @@ extension MainViewController: CustomCollectionViewDelegate {
         }
     }
 }
+
+// MARK: - HeaderViewDalegate
 extension MainViewController: HeaderViewDalegate {
+    
+    /// UIActivityViewController, Sharing Weather
+    func shareButton() {
+        
+        guard let city = self.getWeather?.city?.name else {
+            return
+        }
+        guard let url = URL(string: "https://openweathermap.org/city?q=\(city)") else {
+            return
+        }
+        let alert = UIAlertController(title: "Share", message: "Share Weather to day!", preferredStyle: .actionSheet)
+        
+        // Activiti action
+        let activitiButton = UIAlertAction(title: "Standart share", style: .default) { (_) in
+            let activitiViewController = UIActivityViewController(activityItems:
+                ["""
+                    \(self.getWeather?.city?.name ?? DefoultConstant.empty)
+                    \(self.getWeather?.list.first?.desc ?? DefoultConstant.empty)
+                    \(TemperatureFormatter.temperatureFormatter(self.getWeather?.list.first?.max))
+                    """, url],
+                                                                  applicationActivities: nil)
+            self.present(activitiViewController, animated: true, completion: nil)
+        }
+        
+        // Facebook action
+        let facebook = UIAlertAction(title: "Share on Facebook", style: .default) { (_) in
+            guard let city = self.getWeather?.city?.name else {
+                return
+            }
+            guard let url = URL(string: "https://openweathermap.org/city?q=\(city)") else {
+                return
+            }
+            let content = LinkShareContent(url: url, quote: """
+                \(self.getWeather?.city?.name ?? DefoultConstant.empty)
+                \(self.getWeather?.list.first?.desc ?? DefoultConstant.empty)
+                \(TemperatureFormatter.temperatureFormatter(self.getWeather?.list.first?.max))
+                """)
+            do {
+                try ShareDialog.show(from: self, content: content)
+            } catch {
+                print("Error Facebook share")
+            }
+            
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(activitiButton)
+        alert.addAction(facebook)
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true, completion: nil)
+        Analytics.logEvent("ShowCityListVC", parameters: nil)
+    }
+    
+    /// Buton open GoogleMap
     func buttonAction() {
-         tabBarController?.selectedIndex = 1
+        tabBarController?.selectedIndex = 1
+        Analytics.logEvent("ShareButton", parameters: nil)
     }
 }

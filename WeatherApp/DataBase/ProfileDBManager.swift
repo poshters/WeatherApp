@@ -16,10 +16,11 @@ class ProfileDBManager {
         do {
             let realm = try Realm()
             try realm.write {
-                realm
-                if realm.objects(ProfileModels.self).isEmpty {
-                    realm.add(object, update: true)
+                if realm.objects(ProfileModels.self).count == 20 {
+                    let profiles = realm.objects(ProfileModels.self)
+                    profiles.forEach { realm.delete($0) }
                 }
+                realm.add(object, update: true)
             }
             return true
         } catch {
@@ -32,14 +33,11 @@ class ProfileDBManager {
         do {
             let realm = try Realm()
             try realm.write {
-//                                                let profiles = realm.objects(ProfileModels.self)
-//                                                profiles.forEach { realm.delete($0) }
                 object.name = DefoultConstant.empty
                 object.lastName = DefoultConstant.empty
                 object.phoneNumber = DefoultConstant.empty
                 object.email = DefoultConstant.empty
-                object.maleButton = ProfileConstant.success2
-                object.womanButton = ProfileConstant.success2
+                object.state = State.nonsel.rawValue
             }
             return true
         } catch {
@@ -56,6 +54,7 @@ class ProfileDBManager {
             return nil
         }
     }
+    
     class func deleteProfileAll(object: ProfileModels) -> Bool {
         do {
             let realm = try Realm()

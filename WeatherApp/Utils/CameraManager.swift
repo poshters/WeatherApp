@@ -7,15 +7,15 @@
 //
 
 import Foundation
-
 import UIKit
 
-class CameraManager: NSObject {
+final class CameraManager: NSObject {
     static let shared = CameraManager()
     
     private var currentVC: UIViewController?
     var imagePickedBlock: ((UIImage) -> Void)?
     
+    /// Show camera
     func camera() {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             let myPickerController = UIImagePickerController()
@@ -23,20 +23,21 @@ class CameraManager: NSObject {
             myPickerController.sourceType = .camera
             currentVC?.present(myPickerController, animated: true, completion: nil)
         }
-        
     }
     
-    func photoLibrary() {
-        
+    /// Show photo library
+    private func photoLibrary() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let myPickerController = UIImagePickerController()
             myPickerController.delegate = self
             myPickerController.sourceType = .photoLibrary
             currentVC?.present(myPickerController, animated: true, completion: nil)
         }
-        
     }
-    
+
+    /// Show ActionSheet
+    ///
+    /// - Parameter viewController: UIViewController
     func showActionSheet(viewController: UIViewController) {
         currentVC = viewController
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -54,7 +55,12 @@ class CameraManager: NSObject {
         
         viewController.present(actionSheet, animated: true, completion: nil)
     }
-    
+
+    /// Save image to photo library
+    ///
+    /// - Parameters:
+    ///   - imageName: String
+    ///   - image: UIImage
     func saveImage(imageName: String, image: UIImage ) {
         let fileManager = FileManager.default
         let imagePath = (NSSearchPathForDirectoriesInDomains(
@@ -64,6 +70,10 @@ class CameraManager: NSObject {
         fileManager.createFile(atPath: imagePath as String, contents: data, attributes: nil)
     }
     
+    /// Get image with photo library
+    ///
+    /// - Parameter imageName: String
+    /// - Returns: String
     func getImage(imageName: String) -> String {
         let fileManager = FileManager.default
         let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask,
@@ -75,6 +85,7 @@ class CameraManager: NSObject {
     }
 }
 
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension CameraManager: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         currentVC?.dismiss(animated: true, completion: nil)
@@ -89,5 +100,4 @@ extension CameraManager: UIImagePickerControllerDelegate, UINavigationController
         }
         currentVC?.dismiss(animated: true, completion: nil)
     }
-    
 }

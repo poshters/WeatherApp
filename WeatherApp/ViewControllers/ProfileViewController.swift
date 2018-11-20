@@ -11,9 +11,10 @@ import RealmSwift
 import GoogleSignIn
 import FBSDKCoreKit
 import FBSDKLoginKit
+import Firebase
 
-class ProfileViewController: UIViewController, GIDSignInUIDelegate {
-    
+final class ProfileViewController: UIViewController, GIDSignInUIDelegate {
+    // MARK: - UI
     @IBOutlet private weak var editButtonOutlet: UIBarButtonItem!
     @IBOutlet private weak var phoneTextField: UITextField!
     @IBOutlet private weak var emailTextField: UITextField!
@@ -23,23 +24,23 @@ class ProfileViewController: UIViewController, GIDSignInUIDelegate {
     @IBOutlet private weak var nameTextField: UITextField!
     @IBOutlet private weak var signInButton: GIDSignInButton!
     @IBOutlet private weak var loginButtonState: FBSDKLoginButton!
+    
+    // MARK: - Instance
     private let result = ProfileDBManager.getProfile()
     private let modelRegistration = ProfileModels()
     private let realm = try? Realm()
     private var editable = false
     private var flag = false
     
-    /// getDatawithDB
+    /// Get data with data base
     private func getDataWithDB() {
-        custonView.setImageToButtonMaleAndWoman(male: result?.first?.maleButton ?? ProfileConstant.success2 ,
-                                                woman: result?.first?.womanButton ?? ProfileConstant.success2)
         nameTextField.text = result?.last?.name
         lastNameTextField.text = result?.last?.lastName
         emailTextField.text = result?.last?.email
         phoneTextField.text = result?.last?.phoneNumber
     }
     
-    /// getFacebookProfileInfo
+    /// Get Facebook profile info
     private func getFacebookProfileInfo() {
         let requestMe: FBSDKGraphRequest = FBSDKGraphRequest.init(
             graphPath: "me",
@@ -67,7 +68,9 @@ class ProfileViewController: UIViewController, GIDSignInUIDelegate {
         connection.start()
     }
     
-    /// getImageFacebookProfile
+    /// Get image Facebook profile
+    ///
+    /// - Parameter url: imageURL
     private func fetchImage(url: String?) {
         let imageURL = URL(string: url ?? DefoultConstant.empty)
         var image: UIImage?
@@ -87,7 +90,7 @@ class ProfileViewController: UIViewController, GIDSignInUIDelegate {
         }
     }
     
-    /// setImageBackground
+    /// Set image background
     private func setImageBackground() {
         let backgroundImage = UIImageView(image: UIImage(named: ProfileConstant.profileImage))
         backgroundImage.contentMode = UIView.ContentMode.scaleAspectFill
@@ -112,17 +115,17 @@ extension ProfileViewController {
             imageName: ProfileConstant.avatar)), for: .normal)
         photoButton.layer.cornerRadius = photoButton.layer.bounds.size.height / 2
         photoButton.clipsToBounds = true
-        custonView.setImageToButtonMaleAndWoman(male: ProfileConstant.success2,
-                                                woman: ProfileConstant.success2)
         getDataWithDB()
         custonView.profileCustomViewDelegate = self
         loginButtonState.delegate = self
+        Analytics.logEvent("ProfileVC", parameters: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super .viewDidAppear(animated)
         signInButton.isEnabled = false
         loginButtonState.isEnabled = false
+        custonView.buttonStateWithDB(state: result?.last?.state ?? 0)
     }
 }
 
@@ -133,6 +136,7 @@ extension ProfileViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        Analytics.logEvent("TextFieldReturn", parameters: nil)
         textField.resignFirstResponder()
         switch textField {
         case nameTextField:
@@ -158,9 +162,13 @@ extension ProfileViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: Action Button
+// MARK: Action button
 extension ProfileViewController {
-    @IBAction private func photoButtonAction(_ sender: UIButton) {
+
+    /// Photo button action
+    ///
+    /// - Parameter sender: UIButton
+    @IBAction func photoButtonAction(_ sender: UIButton) {
         if editable {
             CameraManager.shared.showActionSheet(viewController: self)
             CameraManager.shared.imagePickedBlock = { (image) in
@@ -168,8 +176,12 @@ extension ProfileViewController {
                 CameraManager.shared.saveImage(imageName: ProfileConstant.avatar, image: image)
             }
         }
+        Analytics.logEvent("PhotoButton", parameters: nil)
     }
     
+    /// ClearAllButton
+    ///
+    /// - Parameter sender: Any
     @IBAction func clearAllButton(_ sender: Any) {
         nameTextField.text = DefoultConstant.empty
         lastNameTextField.text = DefoultConstant.empty
@@ -177,17 +189,19 @@ extension ProfileViewController {
         phoneTextField.text = DefoultConstant.empty
         ProfileDBManager.deleteProfile(object: modelRegistration)
         photoButton.setImage( UIImage(named: ProfileConstant.user), for: .normal)
-        custonView.setImageToButtonMaleAndWoman(male: ProfileConstant.success2, woman: ProfileConstant.success2)
         CameraManager.shared.saveImage(imageName: ProfileConstant.avatar,
                                        image: UIImage(named: ProfileConstant.user) ?? UIImage())
         GIDSignIn.sharedInstance().signOut()
+        custonView.disableButton()
+        Analytics.logEvent("ClearAllButton", parameters: nil)
     }
     
-    /// editButton and save data in DB
+    /// Edit button and save data in data base
+    ///
+    /// - Parameter sender: UIBarButtonItem
     @IBAction func editButton(_ sender: UIBarButtonItem) {
         if editable {
             sender.title = ProfileConstant.edit
-            custonView.disableButton(disable: true)
             signInButton.isEnabled = false
             loginButtonState.isEnabled = false
             ProfileDBManager.addDBProfile(object: modelRegistration)
@@ -198,54 +212,81 @@ extension ProfileViewController {
             sender.title = ProfileConstant.editing
         }
         editable = !editable
+        Analytics.logEvent("EditButton", parameters: nil)
     }
+    
+    /// Facebook button action
+    ///
+    /// - Parameter sender: Any
     @IBAction func loginFacebookButtonAction(_ sender: Any) {
         getFacebookProfileInfo()
+        Analytics.logEvent("LoginFacebookButton", parameters: nil)
     }
 }
 
 // MARK: - ProfileCustomViewDelegate
 extension ProfileViewController: ProfileCustomViewDelegate {
-    func changeButtonWoman(maleButton: UIButton, womanButton: UIButton) {
-        maleButton.setImage(UIImage(named: ProfileConstant.success2), for: .normal)
-        try? realm?.write {
-            modelRegistration.maleButton = ProfileConstant.success2
+    
+    /// Change button woman state
+    ///
+    /// - Parameters:
+    ///   - maleButton: ChekBoxButton
+    ///   - womanButton: ChekBoxButton
+    func changeButtonWoman(maleButton: ChekBoxButton, womanButton: ChekBoxButton) {
+        
+        if maleButton.isChecked {
+            maleButton.isChecked = false
+            maleButton.clickOff()
+            try? realm?.write {
+                modelRegistration.state = State.nonsel.rawValue
+            }
         }
         
-        if flag == false {
-            womanButton.setImage(UIImage(named: ProfileConstant.success), for: .normal)
+        if womanButton.isChecked {
+            womanButton.clickOff()
             try? realm?.write {
-                modelRegistration.womanButton = ProfileConstant.success
+                modelRegistration.state = State.nonsel.rawValue
             }
-            flag = true
+            
         } else {
-            womanButton.setImage(UIImage(named: ProfileConstant.success2), for: .normal)
+            womanButton.clickOn()
             try? realm?.write {
-                modelRegistration.womanButton = ProfileConstant.success2
+                modelRegistration.state = State.woman.rawValue
             }
-            flag = false
+            
         }
+        Analytics.logEvent("CheckWomanButton", parameters: nil)
     }
     
-    func changeButtonMale(maleButton: UIButton, womanButton: UIButton) {
-        womanButton.setImage(UIImage(named: ProfileConstant.success2), for: .normal)
-        try? realm?.write {
-            modelRegistration.womanButton = ProfileConstant.success2
+    /// Change button male state
+    ///
+    /// - Parameters:
+    ///   - maleButton: ChekBoxButton
+    ///   - womanButton: ChekBoxButton
+    func changeButtonMale(maleButton: ChekBoxButton, womanButton: ChekBoxButton) {
+        
+        if womanButton.isChecked {
+            womanButton.isChecked = false
+            try? realm?.write {
+                modelRegistration.state = State.nonsel.rawValue
+            }
+            womanButton.clickOff()
         }
         
-        if flag == false {
-            maleButton.setImage(UIImage(named: ProfileConstant.success2), for: .normal)
+        if maleButton.isChecked {
+            maleButton.clickOff()
             try? realm?.write {
-                modelRegistration.maleButton = ProfileConstant.success2
-                flag = true
+                modelRegistration.state = State.nonsel.rawValue
             }
+            
         } else {
-            maleButton.setImage(UIImage(named: ProfileConstant.success), for: .normal)
+            maleButton.clickOn()
             try? realm?.write {
-                modelRegistration.maleButton = ProfileConstant.success
+                modelRegistration.state = State.man.rawValue
             }
-            flag = false
+            
         }
+        Analytics.logEvent("CheckMaleButton", parameters: nil)
     }
 }
 
@@ -273,7 +314,7 @@ extension ProfileViewController: GIDSignInDelegate {
     }
 }
 
-// MARK: - LoginButtonDelegateFacebook
+// MARK: - FBSDKLoginButtonDelegate
 extension ProfileViewController: FBSDKLoginButtonDelegate {
     func loginButton(_ loginButton: FBSDKLoginButton? ,
                      didCompleteWith result: FBSDKLoginManagerLoginResult?, error: Error?) {
@@ -283,6 +324,5 @@ extension ProfileViewController: FBSDKLoginButtonDelegate {
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton?) {
         dismiss(animated: true, completion: nil)
-    
     }
 }

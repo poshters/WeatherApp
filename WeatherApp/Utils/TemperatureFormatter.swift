@@ -1,6 +1,11 @@
 import Foundation
 
 final class TemperatureFormatter {
+    
+    /// Convert temperature from kelvin to celsium
+    ///
+    /// - Parameter kelvinTemp: Double
+    /// - Returns: String
     static func temperatureFormatter(_ kelvinTemp: Double?) -> String {
         guard let kelvinTemp = kelvinTemp else {
             return DefoultConstant.empty

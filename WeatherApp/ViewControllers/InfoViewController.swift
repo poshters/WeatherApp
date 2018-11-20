@@ -1,8 +1,9 @@
 import UIKit
 import AVFoundation
+import Firebase
 
 final class InfoViewController: UIViewController {
-    /// instance
+    // MARK: - Instance
     private let wetherTableView = MainViewController()
     private let dateFormatter = DateFormatter()
     private let dayOfWeek = DateFormatter()
@@ -13,13 +14,14 @@ final class InfoViewController: UIViewController {
     private var listHourly: [ListH]?
     var selectedRow: Weather?
     
-    /// UI
+    // MARK: - UI
     @IBOutlet private weak var currentHourLabel: UILabel!
     @IBOutlet private weak var dayOfWeekLabel: UILabel!
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var hourlyHeaderView: HourlyHeaderView!
+    private let headerView = HeaderView()
     
-    ///Current Time
+    /// Current time
     func accessToOutlet() {
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -33,12 +35,16 @@ final class InfoViewController: UIViewController {
     }
     
     /// Time didSelectRow
+    ///
+    /// - Parameters:
+    ///   - hours: Int
+    ///   - dayOfWeek: Int
     func currenTime(hours: Int, dayOfWeek: Int) {
         currentHourLabel.text = DayOfWeeks.dayOfHours(date: hours)
         dayOfWeekLabel.text = DayOfWeeks.dayOfWeek(date: dayOfWeek)
     }
     
-    ///Save data in DataBase
+    /// Save data in data base
     private func updateData() {
         ApiHourlyWeather().weatherForecastByCity(
             lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
@@ -54,7 +60,7 @@ final class InfoViewController: UIViewController {
         }
     }
     
-    ///Get data with DataBase
+    /// Get data with data base
     private func getData() {
         self.listHourly = DBManager.getWeatherForecastByCity(
             lat: UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude),
@@ -71,6 +77,7 @@ extension InfoViewController {
         getData()
         updateData()
         accessToOutlet()
+        Analytics.logEvent("InfoVC", parameters: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -94,8 +101,12 @@ extension InfoViewController {
     }
 }
 
-// MARK: - VideoBackground
+// MARK: - Video background
 extension InfoViewController {
+    
+    /// Set video background
+    ///
+    /// - Parameter videoName: String
     func videoBackground(videoName: String) {
         guard let theURL = Bundle.main.url(forResource: videoName, withExtension: "mp4")
             else {
@@ -116,6 +127,9 @@ extension InfoViewController {
                                                object: avPlayer.currentItem)
     }
     
+    /// Player item did reach end
+    ///
+    /// - Parameter notification: Notification
     @objc func playerItemDidReachEnd(notification: Notification) {
         guard let pusk: AVPlayerItem = notification.object as? AVPlayerItem else {
             return
@@ -173,19 +187,27 @@ extension InfoViewController: UITableViewDelegate, UITableViewDataSource {
             }
             self.tableView.beginUpdates()
             self.tableView.endUpdates()
+            Analytics.logEvent("SelectRow", parameters: nil)
         }
     }
 }
 
 // MARK: - Action
 extension InfoViewController {
+    
     /// Current time
+    ///
+    /// - Parameter sender: Any
     @IBAction func buttonAction(_ sender: Any) {
         accessToOutlet()
+        Analytics.logEvent("ButtonCurrentTime", parameters: nil)
     }
     
-    /// Button Back
+    /// Button back
+    ///
+    /// - Parameter sender: Any
     @IBAction func backButtonAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+        Analytics.logEvent("BackButton", parameters: nil)
     }
 }

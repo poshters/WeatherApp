@@ -12,7 +12,10 @@ target 'WeatherApp' do
    pod 'GoogleSignIn'
    pod 'FacebookCore' 
    pod 'FacebookLogin' 
-  
+   pod 'FacebookShare'
+   pod 'Fabric'
+   pod 'Crashlytics'
+   pod 'Firebase/Core'
  
   
 

@@ -8,21 +8,19 @@
 
 import UIKit
 import GoogleMaps
+import Firebase
 
 final class GoogleMapViewController: UIViewController {
-    ///UI
+    // MARK: - UI
     @IBOutlet private weak var mapView: GMSMapView!
+    
+    // MARK: - Instance
     private let locationManager = CLLocationManager()
     private let allCity = DBManager.getAllCities()
     private var markers = [GMSMarker]()
     private var locationManagers = CLLocationManager()
     
-    private func showMarker(position: CLLocationCoordinate2D) {
-        let marker = GMSMarker()
-        marker.position = position
-        marker.map = mapView
-    }
-    
+    /// Markers on map
     private func markersMap() {
         if let allCity = allCity {
             mapView.camera = GMSCameraPosition.camera(withLatitude:
@@ -47,6 +45,7 @@ final class GoogleMapViewController: UIViewController {
                                            description: result.list.first?.desc ?? DefoultConstant.empty,
                                            icon: result.list.first?.icon ?? DefoultConstant.empty)
             }
+            
             marker.map = mapView
             mapView.selectedMarker = marker
             for coord in allCity {
@@ -57,18 +56,20 @@ final class GoogleMapViewController: UIViewController {
         }
     }
     
+    /// Show location on map
     private func location() {
         mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
     }
 }
 
-// MARK: - LifeCycle
+// MARK: - Life cycle
 extension GoogleMapViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         markersMap()
         location()
+        Analytics.logEvent("GoogleMapVC", parameters: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,14 +85,13 @@ extension GoogleMapViewController {
 
 // MARK: - GMSMapViewDelegate
 extension GoogleMapViewController: GMSMapViewDelegate {
-    ///TransitionToWeather
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         UserDefaults.standard.set(marker.position.latitude, forKey: UserDefaultsConstant.latitude)
         UserDefaults.standard.set(marker.position.longitude, forKey: UserDefaultsConstant.longitude)
         self.tabBarController?.selectedIndex = 0
+        Analytics.logEvent("DidTapInfoWindow", parameters: nil)
     }
     
-    ///Set a custom Info Window
     func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
         
         guard let infoWindow = Bundle.main.loadNibNamed(MapPinView.className, owner: self.view,
@@ -113,10 +113,5 @@ extension GoogleMapViewController: GMSMapViewDelegate {
         if gesture == true {
             mapView.selectedMarker = nil
         }
-    }
-    
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        //        mapView.selectedMarker = marker
-        return false
     }
 }

@@ -1,6 +1,13 @@
 import Foundation
 
 final class DayOfWeeks {
+    
+    /// Milliseconds to date with separator
+    ///
+    /// - Parameters:
+    ///   - date: Int?
+    ///   - separateDataAndDay: Bool = false
+    /// - Returns: String
     class func dayOfWeeks(date: Int?, separateDataAndDay: Bool = false ) -> String {
         guard let dateWeek = date else {
             return DefoultConstant.empty
@@ -24,6 +31,10 @@ final class DayOfWeeks {
         }
     }
     
+    /// Milliseconds to date
+    ///
+    /// - Parameter date: Int
+    /// - Returns: String
     class func dayOfWeek(date: Int) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(date))
         let dayOfWeek = DateFormatter()
@@ -31,6 +42,10 @@ final class DayOfWeeks {
         return  "\(dayOfWeek.string(from: date))"
     }
     
+    /// Milliseconds to hourse
+    ///
+    /// - Parameter date: Int
+    /// - Returns: String
     class func dayOfHours(date: Int) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(date))
         let dayOfWeek = DateFormatter()
@@ -38,6 +53,10 @@ final class DayOfWeeks {
         return  "\(dayOfWeek.string(from: date))"
     }
     
+    /// Milliseconds to timeToDay
+    ///
+    /// - Parameter hour: Int
+    /// - Returns: String
     class func timeToDay(hour: Int) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(hour))
         let hour = Calendar.current.component(.hour, from: date)

@@ -9,10 +9,14 @@
 import Foundation
 
 final class ApiHourlyWeather {
-    private let lat = UserDefaults.standard.double(forKey: UserDefaultsConstant.latitude)
-    private let long = UserDefaults.standard.double(forKey: UserDefaultsConstant.longitude)
     private let language = Locale.current.languageCode ?? DefoultConstant.empty
-    
+        
+    /// Get hourly weather forecast
+    ///
+    /// - Parameters:
+    ///   - lat:latitude
+    ///   - long: longitude
+    ///   - completion: WeatherHourlyMainModel
     func weatherForecastByCity(lat: Double, long: Double,
                                completion: ((WeatherHourlyMainModel?, Error?) -> Void)? = nil) {
         let session = URLSession.shared
@@ -48,6 +52,14 @@ final class ApiHourlyWeather {
     }
     
     /// URl OpenWeatherMap
+    ///
+    /// - Parameters:
+    ///   - url: String
+    ///   - language: String
+    ///   - apiKey: String
+    ///   - lat: Double
+    ///   - lon: Double
+    /// - Returns: String
     private func urlApiOpenWeather(url: String, language: String, apiKey: String, lat: Double, lon: Double) -> String {
         return "\(url)lat=\(lat)&lon=\(lon)&lang=\(language)&APPID=\(apiKey)"
     }

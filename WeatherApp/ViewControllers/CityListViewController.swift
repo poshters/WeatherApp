@@ -1,11 +1,12 @@
 import UIKit
 import RealmSwift
+import Firebase
 
 final class CityListViewController: UIViewController {
-    ///UI
+    // MARK: - UI
     @IBOutlet private weak var cityTableView: UITableView!
     
-    ///Instance
+    // MARK: - Instance
     private let wetherTableVC = MainViewController()
     private let listCity = DBManager.getAllCities()
     
@@ -23,11 +24,12 @@ final class CityListViewController: UIViewController {
     }
 }
 
-// MARK: - Life Cycle
+// MARK: - Life cycle
 extension CityListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setImageBackground()
+        Analytics.logEvent("CityListVC", parameters: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +73,7 @@ extension CityListViewController: UITableViewDelegate, UITableViewDataSource {
         UserDefaults.standard.set(selectedCity?.lat, forKey: UserDefaultsConstant.latitude)
         UserDefaults.standard.set(selectedCity?.lon, forKey: UserDefaultsConstant.longitude)
         cityTableView.deselectRow(at: indexPath, animated: true)
+        Analytics.logEvent("SelectRowCity", parameters: nil)
     }
     
     func tableView(_ tableView: UITableView,
@@ -84,7 +87,8 @@ extension CityListViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
         if editingStyle == .delete {
-            ///Delete with Data Base
+            
+            // Delete with Data Base
             DBManager.deleteHourlyWeather(city: deletedCity)
             do {
                 let realm = try Realm()
@@ -106,11 +110,12 @@ extension CityListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK: - UIButtonAction
+// MARK: - UIButton action
 extension CityListViewController {
     
-    /// EditTable
+    /// Edit table
     @IBAction func editingTable(_ sender: Any) {
         cityTableView.isEditing = !cityTableView.isEditing
+        Analytics.logEvent("EditingButton", parameters: nil)
     }
 }

@@ -5,6 +5,9 @@ import GoogleSignIn
 import FBSDKCoreKit
 import FBSDKLoginKit
 import UserNotifications
+import Fabric
+import Crashlytics
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,7 +23,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         FBSDKApplicationDelegate.sharedInstance()?.application(application,
                                                                didFinishLaunchingWithOptions: launchOptions)
+              Fabric.with([Crashlytics.self])
+        self.logUser()
+        FirebaseApp.configure()
         return true
+    }
+    
+    func logUser() {
+        Crashlytics.sharedInstance().setUserEmail("user@fabric.io")
+        Crashlytics.sharedInstance().setUserIdentifier("12345")
+        Crashlytics.sharedInstance().setUserName("Test User")
     }
     
     func application(_ app: UIApplication, open url: URL,
