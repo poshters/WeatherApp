@@ -381,6 +381,6 @@ extension MainViewController: HeaderViewDalegate {
     /// Buton open GoogleMap
     func buttonAction() {
         tabBarController?.selectedIndex = 1
-        Analytics.logEvent("ShareButton", parameters: nil)
+        Analytics.logEvent("ShowGoogleMapButton", parameters: nil)
     }
 }
